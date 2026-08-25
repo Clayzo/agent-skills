@@ -105,12 +105,12 @@ something. See `loop-design.md`.
 
 ## Which renderer will play it
 
-If the project ships `@clayzo/webgl`, confirm it can draw what you authored —
+If the project ships `@clayzo/webgl-player`, confirm it can draw what you authored —
 mattes, nested clips and colour-space intrinsics in custom shaders need
-`@clayzo/canvaskit`:
+`@clayzo/canvaskit-player`:
 
 ```ts
-import { checkCoverage } from "@clayzo/webgl";
+import { checkCoverage } from "@clayzo/webgl-player";
 const coverage = await checkCoverage(document);
 ```
 

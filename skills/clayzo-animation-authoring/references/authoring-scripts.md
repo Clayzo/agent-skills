@@ -8,7 +8,7 @@ other skills in this directory are about what to build, not how.
   unobvious enough to get wrong, and the failure is quiet: a document can be
   structurally wrong and still render *something*, so inspecting the output
   does not tell you it is broken.
-- Import from `@clayzo/animation-engine/authoring`. It carries the node types,
+- Import from `@clayzo/animation/authoring`. It carries the node types,
   the value types, `constant`, validation, revision stamping, interaction
   authoring with all eight pointer macros, and bundling. Other entry points
   exist and are machinery.
@@ -28,7 +28,7 @@ import {
   ANIMATION_DOCUMENT_VERSION, assertValidAnimationDocument, constant,
   withComputedRevision,
   type AnimationDocument, type SceneNode, type Transform25D,
-} from "@clayzo/animation-engine/authoring";
+} from "@clayzo/animation/authoring";
 
 // 1. Helpers that return nodes. `transform` first — every node needs one and
 //    there are no partial transforms.

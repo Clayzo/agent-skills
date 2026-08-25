@@ -46,17 +46,17 @@ features matter.
 Two packages, same call, so swapping is one word in an import:
 
 ```ts
-import { createPlayer } from "@clayzo/webgl";      // ~253 KB brotli
-import { createPlayer } from "@clayzo/canvaskit";  // ~2,535 KB brotli
+import { createPlayer } from "@clayzo/webgl-player";      // ~253 KB brotli
+import { createPlayer } from "@clayzo/canvaskit-player";  // ~2,535 KB brotli
 
 const player = await createPlayer({ canvas, document });
 player.play();
 ```
 
-**`@clayzo/webgl`** when transfer size is the constraint and you know your
+**`@clayzo/webgl-player`** when transfer size is the constraint and you know your
 documents. Run `checkCoverage` first, and in CI over everything you ship.
 
-**`@clayzo/canvaskit`** when you cannot enumerate the documents in advance, or
+**`@clayzo/canvaskit-player`** when you cannot enumerate the documents in advance, or
 when coverage says a document needs it. It is the reference: correct by
 construction, and identical to what the video export produces.
 
@@ -71,5 +71,5 @@ those bytes at play time, and if no loader supplies them the text draws
 *nothing* — it does not substitute and it does not warn.
 
 Packaging as `.clayzo` embeds them and ends the problem. Otherwise the host
-must wire a font loader, and `@clayzo/canvaskit`'s `onPrewarm` reports
+must wire a font loader, and `@clayzo/canvaskit-player`'s `onPrewarm` reports
 `unresolvedFamilies` so this is caught in development rather than in production.
