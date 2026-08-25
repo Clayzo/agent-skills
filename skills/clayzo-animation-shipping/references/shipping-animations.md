@@ -9,8 +9,10 @@ primarily about file size — it is about what the artefact has to do.
   representation, and exports do not evaluate bindings at all — see below.
 - If the destination is not a page you control — an email, an ad network, a
   slide deck — it is a video. A runtime needs to be loaded from somewhere.
-- Pick the renderer once, at integration time, and ship one. Do not make the
-  page able to load both.
+- Pick the renderer once, at integration time, and ship one. Start with WebGL
+  for websites, verify coverage over every shipped document, and move to
+  CanvasKit only when coverage or an explicit fidelity requirement demands it.
+  Do not make the page able to load both.
 - **Anything whose rest state depends on a binding does not have a rest state.**
   Exports do not run the interaction graph; they render the timeline as
   authored and ignore bindings entirely. A property you authored as `1` and
@@ -56,13 +58,14 @@ player.play();
 **`@clayzo/webgl-player`** when transfer size is the constraint and you know your
 documents. Run `checkCoverage` first, and in CI over everything you ship.
 
-**`@clayzo/canvaskit-player`** when you cannot enumerate the documents in advance, or
-when coverage says a document needs it. It is the reference: correct by
-construction, and identical to what the video export produces.
+**`@clayzo/canvaskit-player`** when you cannot enumerate the documents in advance,
+when coverage says a document needs it, or when reference-renderer parity is an
+explicit requirement. It is identical to what the video export produces.
 
-If undecided, ship CanvasKit. Page weight is a problem you can measure and fix
-later; a construct that silently does not draw is a bug users report and you
-cannot reproduce.
+If undecided, start with WebGL and make `checkCoverage` a build gate. CanvasKit
+is the deliberate fallback for unsupported constructs, design tools with
+unbounded user-authored content, and integrations where exact export parity is
+worth the substantially larger transfer.
 
 ## Fonts
 

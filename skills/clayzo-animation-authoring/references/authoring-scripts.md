@@ -3,6 +3,12 @@
 Writing a program that emits an animation document. This is the mechanics; the
 other skills in this directory are about what to build, not how.
 
+If the project is not initialized yet, run `npx clayzo@latest init`. The
+initializer installs the typed authoring package, the lightweight WebGL player,
+the local CLI (including the CanvasKit preview/export dependency), and the
+Clayzo skills. Add the CanvasKit website player only when the integration
+actually needs full-fidelity embedded playback.
+
 ## Decision principles
 - Write TypeScript against the types, never JSON by hand. The shapes are
   unobvious enough to get wrong, and the failure is quiet: a document can be
