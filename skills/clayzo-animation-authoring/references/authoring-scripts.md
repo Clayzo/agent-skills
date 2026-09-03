@@ -46,10 +46,9 @@ const transform = (x: number, y: number): Transform25D => ({
   skew: constant({ x: 0, y: 0 }),
 });
 
-// 2. A `base` helper for the fields every node repeats. `inTick` is the
-//    cue for anything that appears later than the first frame.
-const base = (id: string, x: number, y: number, inTick = 0) => ({
-  id, name: id, visible: true, inTick, outTick: DURATION,
+// 2. A `base` helper for the fields every node repeats.
+const base = (id: string, x: number, y: number) => ({
+  id, name: id, visible: true, inTick: 0, outTick: DURATION,
   opacity: constant(1), transform: transform(x, y), blendMode: "normal" as const,
 });
 
@@ -138,10 +137,6 @@ plausible before it was noticed.
 - Frames are transparent wherever nothing is drawn; `canvas.backgroundColor`
   is metadata. Draw a full-canvas `rect` as the first root node, or exports
   come out on black.
-- Give every node that appears after the first frame an `inTick`. It is the
-  cheapest entrance there is — a whole subtree cued at one tick needs no
-  opacity tracks at all — and without it the node sits in its first keyframe
-  value from tick 0, which renders as a perfectly plausible wrong frame.
 - A hold-cut track (a row that jumps at one tick and drops back two frames
   later) needs a rest keyframe at tick 0 as well, or the node sits in its
   jumped state from the start.

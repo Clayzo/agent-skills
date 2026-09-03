@@ -54,10 +54,7 @@ tread, box. The geometry language comes from one of them, so the product is
 *in* the piece even with no copy. A product teaser shows the product unless
 the brief says abstract; a year in review for a shop shows what the shop
 makes. Wordplay on the name is welcome as the *second* idea, not instead of
-the product. And the noun must *read* as the noun on a 360 px sheet: a bun
-has shoulders and a flat base, a pure ellipse is a hill; a lug is a pill
-with a flat side, not a capsule. Render the silhouette alone on the field
-before building anything on it.
+the product.
 
 ## The choice
 
