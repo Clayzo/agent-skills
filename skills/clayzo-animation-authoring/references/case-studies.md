@@ -72,3 +72,26 @@ One backdrop system, one hero with the only overshoot, one container, one
 title, one layer of punctuation; a still first frame; ins that hand off and
 outs that run in reverse, faster. Choose those five roles for a brief before
 choosing any shape.
+
+## One-shots from short briefs (Fable 5.1, no reference)
+
+Three briefs of one sentence each, judged against the rubric above:
+
+- *"logo reveal for our fintech startup Nimbus. the logo is a cloud. square,
+  3 seconds"* — 25/28. A droplet stretches into the cloud's base (band
+  opening), lobes billow up in a hand-off, an amber lining draws on. Lost
+  points for a backdrop dot field too faint to see and a lining that floated
+  off the edge.
+- *"make me a year-in-review animation for my coffee shop, ritual coffee.
+  portrait, for instagram stories"* — 25/28. A ring-stain lattice, a top-down
+  cup as hero, a paper band with three stats cut in and out, beans as
+  punctuation, a reverse exit to the title card. Lost points for the cup's
+  handle sitting behind the title.
+- *"a launch teaser for our note-taking app 'Loop' — should feel premium and
+  fun. dark mode"* — 24/28. A note writes itself, the pen draws the loop that
+  becomes the mark, the bullets fill on the way back. Lost points for scale:
+  the card and lockup filled a fifth of a 1920 × 1080 frame.
+
+The pattern: concept and motion arrive at the bar on the first try; the
+misses are visibility (contrast, scale) and collisions (type versus hero).
+Check both on a 360 px sheet before timing.

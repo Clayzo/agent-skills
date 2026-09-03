@@ -38,10 +38,19 @@ machine.
 
 **Band opening under a title.** A background-coloured rect widening about its
 centre while the title fades in above it. No clip is involved — the band
-reveals what the hero behind it hides. Its half-width, measured at 1/60 s from
-a 0.65 s start: 25, 53, 95, 127, 151, 169, 183, 191 px, then a slow creep to
-full over another 0.25 s. Trace it as linear segments; no single bezier has
-that tail.
+reveals what the hero behind it hides. Its width as a fraction of full width,
+one value per 1/60 s from the start: 0.10, 0.21, 0.38, 0.51, 0.60, 0.68,
+0.73, 0.76, then a slow creep to 1.0 over another 0.25 s. Trace it as linear
+segments at your frame rate; no single bezier has that tail.
+
+**Draw-on.** A stroke that draws along its path: for arcs animate `endAngle`
+from `startAngle` to its final value; for any path use the `trim` operator with
+`end` 0 → 1. Sequence several segments with durations proportional to their
+lengths so the pen moves at one speed across the joins — ease-in on the
+first, linear in the middle, ease-out on the last — and use round caps.
+Arc angles are degrees, 0° along +x, increasing clockwise on screen (y down);
+`clockwise` is the direction of travel from `startAngle` to `endAngle`, so
+normalise so that the end is past the start in that direction.
 
 **Wipe from an edge.** A clip rect anchored on the leading edge with
 `size.width` animated. Pair with a settle on the content (scale 1.12 → 1.0)

@@ -153,6 +153,25 @@ plausible before it was noticed.
   from ellipses or cubic tangents.
 - Write the document with `writeFileSync`. A top-level `await` fails under
   `tsx` in a CommonJS project, and the failure names esbuild, not your script.
+- A keyframe's `interpolation` and `easing` describe the segment *leaving* it,
+  toward the next keyframe; the last keyframe holds. A `bezier` keyframe with
+  no `easing` is an error at render time, not a silent linear.
+- Keyframe ids must be stable ids and unique; generate them from the node id,
+  the property and the index so a document with a thousand keyframes never
+  collides.
+- Transforms compose: a child's transform is applied in its parent's local
+  space, so a lattice group can drift while every unit pops about its own
+  centre.
+- Markers are sample hints for `review`, but keyframe-dense documents drown
+  them; verify beats with your own `render-frame --samples` sheets.
+- Node `opacity` below 1 allocates an offscreen layer for that node on every
+  frame. Six hundred fading dots is six hundred layers a frame and a
+  ten-minute export. Animate `style.fill.opacity` (and `stroke.opacity`) on
+  solid shapes instead, and merge a field of units into a few `path` nodes;
+  reserve node `opacity` for groups that must fade as one (with `isolation`).
+- `PathVertex.inTangent` and `outTangent` are offsets from the vertex's own
+  `point`, not absolute positions.
+- Colour channels are 0–1 floats, not 0–255.
 - Author at the frame rate the piece will play at (60 fps is 4 ticks per
   frame at 240 tps) and snap every keyframe to it.
 

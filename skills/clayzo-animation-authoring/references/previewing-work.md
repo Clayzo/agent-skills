@@ -123,3 +123,21 @@ drawn, and nobody finds out until a user does.
 several backgrounds and adds diagnostics for blank frames, clipping, contrast
 and motion. Heavier than `render-frame --samples`; worth it before shipping,
 not on every edit.
+
+## What the terminal actually tells you
+
+- `render-frame` and `export` print diagnostic *counts*. The messages live in
+  the review packet (`review.json → frames[].rendererDiagnostics`); a piece
+  with text always carries `text.shaping_fallback` there, which is normal.
+- `--samples N` spreads N ticks evenly and they are not snapped to frames;
+  use `--tick` for an exact frame. Twelve `render-frame` calls in parallel
+  are cheap.
+- `review` renders at 512 px and its sampler weights keyframe density, so a
+  pattern of hundreds of popping units takes every sample. Treat the packet
+  as the error check and your own sample sheets as the design check.
+- Cost on the CPU backend is roughly 1.5–3 s per 1080 × 1920 frame with no
+  effects at all; a ten-second story is ten minutes. Progress with an ETA is
+  printed to stderr. Anything longer than two seconds should be exported from
+  `clayzo preview` or with `--backend browser`.
+- `export` writes a `<output>.mp4.preview.png` sheet of the first twelve
+  frames beside the file; it is a convenience, not a deliverable.

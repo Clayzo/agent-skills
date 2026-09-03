@@ -43,3 +43,18 @@ When matching a clip, sample the clip. Brand red `#F24E1E` played back as
 `#fb5a2f` after encoding, and every other swatch shifted the same way; the
 recreation should match what people see, and the swap to brand values is one
 constant later.
+
+## Lockups and clearance
+
+- Square lockup: wordmark width 0.80–0.85 × mark width, gap 0.10–0.12 × mark
+  height, and the pair centred so the mark's visual weight sits slightly
+  above centre (about 55 % of the height above).
+- Nothing of the hero crosses the title's line. Handles, tips, arcs and halos
+  go on the side away from type, and a band that carries type is checked for
+  collisions at 360 px before anything is timed.
+- A stroke's width scales with the group it sits in (0.055 units in a group
+  scaled ×100 is 5.5 px); set it in unit space like everything else.
+- Radial `gradientFill`: `start` is the centre and `end` a point on the
+  radius, both in the node's own centred coordinates.
+- A halo or lining drawn as an offset arc should sit on the edge (offset ≈
+  half the stroke width plus 1 px); a visible gap reads as a mistake, not air.

@@ -82,3 +82,24 @@ bleed hides it, and a 0.5 px colour overlap is invisible.
 - Bleed 0.3–0.6 px.
 - A backdrop system should use at most two unit sizes; the reference tilings
   here use one.
+
+## Visibility, budget, drift
+
+- A backdrop that cannot be seen in a 360 px sample sheet does not exist for
+  the viewer: keep units at least 8 px at that size and at least 12 %
+  luminance contrast against the field. Vignettes that fade a dot field to
+  nothing at the edges are fine; a whole field at 7 % contrast is not.
+- Several hundred small units, each with pop keyframes, take every slot in
+  the review sampler, and the hero, title and punctuation go unreviewed.
+  Author beat markers anyway, and check the beats with your own
+  `render-frame --samples` sheets.
+- A slow drift of the whole lattice is motion from its first tick. If the
+  piece opens on a still, start the drift after it.
+
+## Cost
+
+A unit's node `opacity` is a layer per unit per frame; a field of a few
+hundred fading dots turns a 20 ms frame into a 2 s one. Fade solid units
+through `style.fill.opacity`, or draw the whole field as a handful of `path`
+nodes grouped by onset. Units under 8 px fade in rather than pop — a pop at
+that size is invisible and costs the same.

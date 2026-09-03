@@ -14,7 +14,7 @@ any piece longer than a second.
 | Pop with landing | scale 0 → 1.06 → 1 | out, then in-out | 0.07 s + 0.05 s | small dots |
 | Flood | clip Ø 0 → full | `{0.2, 0.45, 0.45, 1}` | 0.17–0.23 s | corner reveals |
 | Drain | clip Ø full → 0 | `{0.5, 0, 0.7, 0.7}` | 0.12–0.15 s | reverse reveals |
-| Hero pop, plateau, snap | scale 0 → 1.18 (0.28 s) → 1.19 (0.12 s) → 1.0 (0.10 s), opacity 0 → 1 in the first 0.15 s | out / linear / in-out | 0.50 s | starburst |
+| Hero pop, plateau, snap | scale 0 → 1.18 (0.28 s) → 1.19 (0.12 s) → 1.0 (0.10 s); opacity 0 → 1 in the first 0.15 s only when the hero is darker than its ground | out / linear / in-out | 0.50 s | starburst |
 | One-bounce rise | scale 0.4 → 1.0 (0.23 s) → 1.15 (0.40 s) → 1.0 (0.15 s), opacity 0 → 1 in the first 0.17 s | out / soft out / in-out | 0.78 s | large numerals behind a title |
 | Fade and settle | opacity 0 → 1 (0.34 s) with scale 1.12 → 1.0 (0.27 s), anchored at the baseline | `{0.25, 0.5, 0.45, 1}` | 0.34 s | title text |
 | Zoom from the axis | group scale 0 → 1 about the point where it crosses the frame's axis; opacity 0 → 1 over the same span | measured, played as linear segments | 0.27 s centre, 0.43 s neighbours, 0.50 s outer | pixel chains |
@@ -22,6 +22,44 @@ any piece longer than a second.
 | Exponential grow-fade | `v = v0 + (1 − v0)(1 − e^(−t/τ))`, τ ≈ 0.3 × duration, scale and opacity together | bezier fit to that curve | 16–40 frames | pattern cells in a card |
 | Spin-in | rotation 155° clockwise while scaling from 0, settling with a point on an axis | out | 1.5 s | badge starburst |
 | Slide-in | position −14 px → 0 with opacity | out | 0.2 s | placeholder text bars |
+
+All durations were measured at 60 fps (4 ticks per frame). At 30 fps a 0.10 s
+pop is three frames and still reads as a pop; keep durations in seconds and
+snap every keyframe to the rate the piece will play at.
+
+**Light on dark does not fade.** A cream or white hero at partial opacity over
+a dark field is grey mud for the six frames the ramp lasts. Scale from zero
+and let the silhouette do the entrance; reserve opacity ramps for dark shapes
+on light grounds, or for elements the same luminance as their ground.
+
+**A backdrop beat must be visible.** If the sample sheet at 360 px does not
+show it, it is a stall, not a beat: units at least 8 px at that size and at
+least 12 % luminance contrast against the field.
+
+## Scale
+
+A teaser is not a widget. The hero and its container together span at least
+half the frame's width in landscape and 70 % of it in portrait; a tagline is
+at least 3 % of the frame height and a wordmark at least 9 %. Check the
+settled frame at phone size (360 px wide) before timing anything: if the
+piece reads as a small object in a void, scale the composition, not the
+motion.
+
+## Content states
+
+A stat, line or card that replaces another inside one piece is a cut, not a
+crossfade. Drain the outgoing element over 0.08–0.12 s (opacity → 0, scale →
+0.94, drain ease) so it ends exactly on the incoming element's start tick,
+then bring the new one in with fade-and-settle. Two numerals crossing is mud.
+Hold each state 1.3–2.0 s for reading; with three or more states the one-bounce
+rise happens once, on the first, and the rest settle plainly.
+
+## The still first frame
+
+It has to read as a title card on its own: frame furniture that persists for
+the whole piece (a header line, a footer line), or the grey or ghosted resting
+state of the mark, or simply the field. Two frames minimum; a slow drift that
+starts on tick 0 counts as motion, so start drifts after the still.
 
 ## Orders that read as designed
 
