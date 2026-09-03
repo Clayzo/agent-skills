@@ -6,6 +6,18 @@ for; this says what the numbers were when it worked. Reach for a named
 primitive before inventing a curve, and use at least three different ones in
 any piece longer than a second.
 
+## The card
+
+If you read nothing else: still 2 frames; backdrop beat 0.1–0.5 s; hero at
+0.4–0.7 s with the only overshoot (1.18 plateau, or 1.06 when it spans the
+frame); title fade-and-settle 0.34 s at the baseline; punctuation in an
+irregular order 50–70 ms apart; hold ≥ 0.25 s or exit in reverse 30 % faster.
+Ease-out for ins `{0.2, 0.45, 0.45, 1}`, drain for outs `{0.5, 0, 0.7, 0.7}`,
+pop `{0.1, 0.9, 0.3, 1}`, settle `{0.25, 0.5, 0.45, 1}`, snap `{0.45, 0, 0.55, 1}`.
+Visible means ≥ 8 px and ≥ 0.12 luminance difference at 360 px. Never scale
+a clip to 0; never ramp between two hues; never fade a large light shape on
+dark.
+
 ## Primitives
 
 | Name | Track | Ease | Duration | Where it came from |
@@ -23,9 +35,11 @@ any piece longer than a second.
 | Spin-in | rotation 155° clockwise while scaling from 0, settling with a point on an axis | out | 1.5 s | badge starburst |
 | Slide-in | position −14 px → 0 with opacity | out | 0.2 s | placeholder text bars |
 
-All durations were measured at 60 fps (4 ticks per frame). At 30 fps a 0.10 s
-pop is three frames and still reads as a pop; keep durations in seconds and
-snap every keyframe to the rate the piece will play at.
+All durations were measured at 60 fps (4 ticks per frame). At 30 fps (8
+ticks per frame): pop 3 frames, pop-with-landing 2 + 2, flood 5–7, drain
+4–5, hero pop-plateau-snap 8 + 4 + 3, fade-and-settle 10 with the scale
+landing at 8, one-bounce rise 7 + 12 + 5. Keep durations in seconds and snap
+every keyframe to the rate the piece will play at.
 
 **Large light shapes on dark do not fade.** A cream or white *filled shape*
 at partial opacity over a dark field is grey mud for the six frames the ramp
@@ -59,7 +73,8 @@ field.
 
 A teaser is not a widget. The hero and its container together span at least
 half the frame's width in landscape and 70 % of it in portrait; a tagline is
-at least 3 % of the frame height and a wordmark at least 9 %. Check the
+at least 3 % of the frame height and a wordmark spans 70–85 % of the width
+(see `art-direction.md`). Check the
 settled frame at phone size (360 px wide) before timing anything: if the
 piece reads as a small object in a void, scale the composition, not the
 motion.

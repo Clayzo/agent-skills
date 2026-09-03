@@ -15,6 +15,9 @@ the arc approximation that SVG paths go through.
   rounded at about 0.9 × cell.
 - **Concave four-point star** — a square with four background-coloured discs
   on its corners.
+- **Crumb, sprinkle, badge** — `polystar` with a shallow star ratio
+  (inner 0.85–0.9 × outer) and `innerRoundness`/`outerRoundness` in
+  0–100 (percent; 0.5 does nothing, 60 rounds the tips).
 - **Starburst** — `polystar`, variant `"star"`. The first outer tip sits at
   `rotationOffset − 90°` (straight up when the offset is 0) and tips repeat
   every `360 / points`. A 24-point burst at outer 206 / inner 161 is the

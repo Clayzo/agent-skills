@@ -87,8 +87,10 @@ in this order, in writing, before authoring:
    third of the frame's shorter edge. A tiled backdrop is big too — units at
    least 12 % of the shorter edge on a pitch no more than 1.6 × the unit, so
    it reads as a system, not wallpaper. Small is the default failure.
-5. **Words: one or none.** A wordmark or one word at ≥ 12 % of the frame
-   height, or nothing. No taglines, captions, footers, dates, stats or
+5. **Words: one or none.** A wordmark or one word spanning 70–85 % of the
+   frame width (which is 9–12 % of the height for a five-letter word in
+   portrait, more in landscape), or nothing. Width is the rule; height
+   follows from the letter count. No taglines, captions, footers, dates, stats or
    placeholder bars unless the brief asks for copy — and if it asks for
    numbers, the numbers are the hero and there are at most three.
 6. **One punch, then flow.** One moment in the first 0.7 s with physical

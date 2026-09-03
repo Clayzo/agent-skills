@@ -60,8 +60,9 @@ and let the numeral's strokes show between the letters. It reads as depth.
 
 ## Ranges
 
-- Poster title: cap height 0.13–0.18 × canvas width in portrait; numerals
-  behind it 1.5–2 × the title's cap height.
+- Poster title: set by width — 70–85 % of the frame for a wordmark, which
+  puts a five-letter word's cap height near 0.15 × the width in portrait;
+  numerals behind it 1.5–2 × the title's cap height.
 - Letter-spacing 0 for a display sans at these sizes; tracking edits under
   0.08 em.
 - Placeholder copy in product mockups: bars at 0.3–0.5 × the line height,
