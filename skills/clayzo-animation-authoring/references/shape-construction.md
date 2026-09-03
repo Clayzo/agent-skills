@@ -69,7 +69,9 @@ and the band spans `radius ± width/2`; `fill` is optional. Angles are degrees
 from +x, clockwise on screen. A ring with a gap is one arc from `gap/2` to
 `360 − gap/2`. Round caps on a thick stroke are half the stroke width of
 extra shape at each end — on a 110 px ring they dome 55 px into the gap —
-so ends that face a gap take `lineCap: "butt"`.
+so ends that face a gap take `lineCap: "butt"`. An arc drawn on from
+`endAngle == startAngle` with round caps starts as a dot — the pen touching
+down — which is usually right; start at 0.5° if it is not.
 
 Polystar looks (points × inner ratio × roundness): 5 × 0.85 × 100 a soft
 irregular nugget; 5 × 0.70 × 0 a party star; 6 × 0.82 × 60 honeycomb;

@@ -87,6 +87,13 @@ pen touching down. `trim` applies to the whole node, so give each stroke its
 own node when strokes must draw in sequence. A path node's stroke width
 scales with the node's transform like a group's does.
 
+**Two-colour inversion.** A world of exactly two colours inverts with one
+node: a shape filled with the brand colour in `blendMode: "difference"`,
+drawn above everything, turns colour-on-black into black-on-colour exactly,
+antialiasing included. Grow it as the flood (a circle from the impact point,
+a rect as a front) and the inversion is the reveal — no duplicated scene
+inside a clipped group.
+
 **Path morph.** A keyframed `path` interpolates vertex by vertex when the
 contour and vertex counts match, and a stroke `width` keyframes with it: an
 ellipse drawn with `trim` can lift off a page and become a circle mark over

@@ -1,6 +1,9 @@
 # Text and fonts
 
-A wordmark of up to six letters in a geometric sans is a fifteen-minute job
+A pixel wordmark is the cheapest of all — cells on the lattice that spell
+the name, one `path` per row — and the right answer for anything 8-bit,
+terminal or internet-flavoured. Otherwise, a wordmark of up to six letters
+in a geometric sans is a fifteen-minute job
 from rings and pills — two rings for the o's, the same stroke bent into an L
 or a p — and needs no font at all. When no brand face is supplied, prefer
 that: it makes the name part of the system, and it packages.

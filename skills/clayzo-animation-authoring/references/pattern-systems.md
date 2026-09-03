@@ -57,6 +57,12 @@ split-field piece are not a rigid copy of each other — measure each.
 
 ## Seams
 
+Contours unioned inside one `path` node render seam-free at any scale;
+the same rects as separate nodes show a hairline wherever they abut, on any
+downscaled render and on the deliverable the moment the group scales off the
+pixel grid. Put everything that must read as one fill in one path first;
+bleed is the fallback for shapes that must stay separate nodes.
+
 Quote bleed in the pixels of the smallest render you will inspect: 0.6 px at
 1080 is 0.2 px on a 360 px sheet, where both antialiased edges fall in one
 pixel and every join shows a hairline. Use 0.3–0.6 px for the deliverable
