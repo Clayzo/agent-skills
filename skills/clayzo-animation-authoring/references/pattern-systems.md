@@ -103,3 +103,14 @@ hundred fading dots turns a 20 ms frame into a 2 s one. Fade solid units
 through `style.fill.opacity`, or draw the whole field as a handful of `path`
 nodes grouped by onset. Units under 8 px fade in rather than pop — a pop at
 that size is invisible and costs the same.
+
+## A hero inside a tiling
+
+When the hero sits on a tiled backdrop, half tiles peeking around its
+silhouette are the first thing wrong with the render. Three moves fix it:
+a keyline clearing — the hero's own silhouette offset outward by 30–40 px
+in the field colour, drawn under the hero; a lattice origin chosen so every
+tile is either fully inside the clearing or fully clear of it; and culling
+the one tile an overshoot would clip. The tiled mark as a *negative* of the
+hero (the clearing is cloud-shaped, the cloud assembles inside it) is a
+stronger idea than a plain lattice, at no extra cost.

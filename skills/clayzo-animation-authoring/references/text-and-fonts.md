@@ -83,3 +83,13 @@ numbers go in a comment at the top of the script.
 - TikTok, 1080 × 1920: the same vertical band plus a right rail of about
   120 px for the action column.
 - Square feed posts have no chrome; keep 5 % margins.
+
+## A wordmark with no font
+
+Six letters or fewer in a geometric monoline: cap height `H`, stroke
+`0.22 × H` with round caps and joins, letter centrelines inset by half the
+stroke from the cap and base lines, circular bowls (`O`, `B`, `P`, `S` from
+arcs of radius `0.5 × H` and `0.25 × H`), stems as pills, tracking
+`0.18–0.26 × H`. Build it as stroked `path` nodes from exact cubic arcs, or
+as pills and rings. It takes ten to fifteen minutes, it packages, and it
+makes the name part of the system.

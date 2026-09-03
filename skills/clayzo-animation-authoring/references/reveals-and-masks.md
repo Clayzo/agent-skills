@@ -43,8 +43,9 @@ machine.
 centre while the title fades in above it. No clip is involved — the band
 reveals what the hero behind it hides. Its width as a fraction of full width,
 one value per 1/60 s from the start: 0.10, 0.21, 0.38, 0.51, 0.60, 0.68,
-0.73, 0.76, then a slow creep to 1.0 over another 0.25 s. Trace it as linear
-segments at your frame rate; no single bezier has that tail.
+0.73, 0.76, then a slow creep to 1.0 over another 0.25 s. Trace it as nine
+keys — eight linear segments and one eased creep to 1.0 — at your frame
+rate; no single bezier has that tail.
 
 **Draw-on.** A stroke that draws along its path: for arcs animate `endAngle`
 from `startAngle` to its final value; for any path use the `trim` operator with

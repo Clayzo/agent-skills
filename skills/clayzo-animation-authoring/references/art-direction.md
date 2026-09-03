@@ -52,7 +52,9 @@ in this order, in writing, before authoring:
    mode, and then the accent goes big — not a 3 px caret.
 4. **Scale before anything moves.** The system fills the frame: high-contrast
    content spans at least 80 % of the width; the hero alone is at least a
-   third of the frame's shorter edge. Small is the default failure.
+   third of the frame's shorter edge. A tiled backdrop is big too — units at
+   least 12 % of the shorter edge on a pitch no more than 1.6 × the unit, so
+   it reads as a system, not wallpaper. Small is the default failure.
 5. **Words: one or none.** A wordmark or one word at ≥ 12 % of the frame
    height, or nothing. No taglines, captions, footers, dates, stats or
    placeholder bars unless the brief asks for copy — and if it asks for
