@@ -129,6 +129,33 @@ than whatever it should refract.
 | a number parameter with just a value | also needs `minimum` and `maximum` |
 | a partial transform | all five of position, anchor, scale, rotation, skew |
 
+## Facts that bite
+
+Each of these produced a document that validated and rendered something
+plausible before it was noticed.
+
+- Frames are transparent wherever nothing is drawn; `canvas.backgroundColor`
+  is metadata. Draw a full-canvas `rect` as the first root node, or exports
+  come out on black.
+- A keyframed track's first value holds before its first keyframe. A numeral
+  that scales from 0.5 at 1.0 s is sitting there at half size from tick 0
+  unless its `inTick` is the cue.
+- A `composition` needs `width`, `height` and `durationTicks` as well as
+  `nodes` and `rootNodeIds`.
+- `rect` and `ellipse` draw centred on the node's position; `path` vertices
+  are in the node's local space. The transform is `(point − anchor) × scale`,
+  then rotation (`rotation.z` in degrees, clockwise on screen), then
+  `+ position`.
+- Overlapping children of a group at partial opacity double up at the
+  overlaps unless the group has `isolation: true`.
+- `polystar` puts its first outer tip at `rotationOffset − 90°`.
+- SVG arc commands are flattened to straight lines on import; build curves
+  from ellipses or cubic tangents.
+- Write the document with `writeFileSync`. A top-level `await` fails under
+  `tsx` in a CommonJS project, and the failure names esbuild, not your script.
+- Author at the frame rate the piece will play at (60 fps is 4 ticks per
+  frame at 240 tps) and snap every keyframe to it.
+
 ## Interactivity
 
 `withInteraction(scene, contributions)` layers pointer behaviour onto a
