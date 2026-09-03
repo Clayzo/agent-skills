@@ -24,6 +24,38 @@ gradient, a dot field at 7 % contrast, a pen drawing a line, or a small
 object in the middle of an empty ground. That list is what makes an
 animation look generated. Do not do any of it unless the brief asks.
 
+## Four modes, and the rule against the default
+
+The references are four different animals, and a studio's reel has all four.
+Pick one mode per brief and do not let the first one become the default:
+
+- **Tiled system** — the mark or unit repeated edge to edge; the hero is one
+  of the tiles or their negative. Loud, graphic, brand-owning. (The tiled
+  mark reveal.) Right when the brand *has* a mark or a unit worth repeating.
+- **Layered poster** — three or four oversized systems stacked (a pattern, a
+  burst, a band, a word) with punctuation on top. Maximal. (The campaign
+  poster.) Right for a campaign, a year in review, a drop.
+- **One object** — the mark or the word alone on a flat field, nothing else,
+  built or drawn in front of the viewer in one continuous gesture: a stroke,
+  a cascade of bars, a fill that swells. Restraint is the idea. (The striped
+  wordmark.) Right for logo stings and idents; a drawn mark at full scale is
+  this mode at its best, and it is *not* the pen anti-pattern below.
+- **Product surface** — a card, a screen, a document as the system; its own
+  hero band is the graphic. (The card feed.) Right when the brief is a
+  product and the viewer should see it.
+
+Across a set of pieces the modes should differ; within one piece, one mode.
+
+## Geometry from the brief's nouns
+
+Before choosing shapes, write the brief's nouns: *coffee* — cup, ring, bean,
+steam, pour; *notes* — line, card, checkbox, caret; *sneaker* — sole, lace,
+tread, box. The geometry language comes from one of them, so the product is
+*in* the piece even with no copy. A product teaser shows the product unless
+the brief says abstract; a year in review for a shop shows what the shop
+makes. Wordplay on the name is welcome as the *second* idea, not instead of
+the product.
+
 ## The choice
 
 A brief of one sentence with no colours, no copy and no reference is not a
@@ -59,10 +91,12 @@ in this order, in writing, before authoring:
    height, or nothing. No taglines, captions, footers, dates, stats or
    placeholder bars unless the brief asks for copy — and if it asks for
    numbers, the numbers are the hero and there are at most three.
-6. **Punch.** One moment in the first 0.7 s with physical energy — a
-   pop-plateau-snap, a flood with a front, a zoom from the axis — and an
-   entrance order that reads as designed. Fade-and-settle is for type, not
-   for the hero.
+6. **One punch, then flow.** One moment in the first 0.7 s with physical
+   energy — a pop-plateau-snap, a flood with a front, a zoom from the axis —
+   and an entrance order that reads as designed. Everything else flows: a
+   stroke that draws, a fill that swells, a front that pours, a band that
+   opens. A piece that only pops reads as interface; a piece that only flows
+   reads as a screensaver. Fade-and-settle is for type, not for the hero.
 
 ## Order of work
 
@@ -97,5 +131,9 @@ only if it *is* the system (the mark tiled, the letterform striped).
 - Two ideas (a pen *and* a ripple *and* a drop): keep the strongest.
 - Muted palettes chosen to be inoffensive. The references are loud.
 - Gradients, glows, drop shadows and vignettes as a substitute for colour.
-- A logo reveal that draws the logo with a pen. Flood it, snap it, tile it,
-  assemble it from its own parts.
+- A pen drawing a *small* logo on an empty field, then a caption. Drawing the
+  mark is a strong mechanism when the stroke is the whole piece at full scale
+  — one gesture, one colour, nothing else — and a weak one as decoration.
+- The same tiled backdrop behind every brief. The backdrop role can be empty;
+  the striped wordmark has nothing but the mark and is the cleanest of the
+  four.

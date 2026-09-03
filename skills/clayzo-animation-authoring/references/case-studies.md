@@ -71,4 +71,7 @@ number was measured, not chosen.
 One backdrop system, one hero with the only overshoot, one container, one
 title, one layer of punctuation; a still first frame; ins that hand off and
 outs that run in reverse, faster. Choose those five roles for a brief before
-choosing any shape.
+choosing any shape — and let a role be empty on purpose: the striped
+wordmark has no backdrop, no container and no punctuation, and is the
+cleanest of the four. Which roles are filled is the mode (see
+`art-direction.md`).
