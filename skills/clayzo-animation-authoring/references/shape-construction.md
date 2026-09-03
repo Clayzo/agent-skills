@@ -61,3 +61,17 @@ constant later.
   radius, both in the node's own centred coordinates.
 - A halo or lining drawn as an offset arc should sit on the edge (offset ≈
   half the stroke width plus 1 px); a visible gap reads as a mistake, not air.
+
+## Arcs and thick strokes
+
+An `arc` is a stroked arc on a circle: `radius` is the stroke's centreline
+and the band spans `radius ± width/2`; `fill` is optional. Angles are degrees
+from +x, clockwise on screen. A ring with a gap is one arc from `gap/2` to
+`360 − gap/2`. Round caps on a thick stroke are half the stroke width of
+extra shape at each end — on a 110 px ring they dome 55 px into the gap —
+so ends that face a gap take `lineCap: "butt"`.
+
+Polystar looks (points × inner ratio × roundness): 5 × 0.85 × 100 a soft
+irregular nugget; 5 × 0.70 × 0 a party star; 6 × 0.82 × 60 honeycomb;
+7 × 0.87 × 85 a rounded octagon that reads as a polka dot; 24 × 0.78 × 0 a
+burst. Per-unit rotation only reads as scatter at odd point counts.

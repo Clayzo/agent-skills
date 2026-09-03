@@ -65,7 +65,13 @@ stops.
 
 **Pour.** A clip rect anchored on its bottom edge with `scale.y`
 0.001 → 1 on the flood ease, tilted ±4° so the front reads as liquid rather
-than a wipe; alternate the tilt on successive pours. Anything the pour
+than a wipe; alternate the tilt on successive pours. Solve the clip's height
+so that `scale.y = 1` is exactly the reach: an oversized clip does most of its
+travel off-screen and the piece appears to stall while nothing changes.
+Tilting lifts one bottom corner by `halfWidth × sin(tilt)`, so add that to
+the height (or start the clip that far below the frame) or a wedge at one
+corner is never covered. The same rule for edge wipes: the clip's width is
+the travel, so the scale track *is* the front's position. Anything the pour
 carries (a new field colour, recoloured units, a numeral) simply exists inside
 the clipped group, and the previous state is dropped a few frames after the
 front clears it. Over a lattice, a band that opens from its centre shows the
