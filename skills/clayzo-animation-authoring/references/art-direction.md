@@ -137,3 +137,19 @@ only if it *is* the system (the mark tiled, the letterform striped).
 - The same tiled backdrop behind every brief. The backdrop role can be empty;
   the striped wordmark has nothing but the mark and is the cleanest of the
   four.
+
+## Two colours, and wide formats
+
+A brief that gives one saturated colour and black is a two-colour poster:
+use both at full strength and let the piece *invert* — a flood turns
+colour-on-black into black-on-colour — rather than reaching for a third
+colour. For a 16:9 web hero keep the lockup inside the middle 75 % of the
+height so a 21:9 crop survives, put the hero on one side and the word on the
+other at 0.35–0.45 of the width each, and size the hero at 0.7–0.8 of the
+height. A wordmark of five to eight letters can be built from the same stroke
+as the hero; letterforms need not be perfect at 30 fps mid-draw, but the
+settled frame must read as type.
+
+Modes describe the settled frame. A word that is the surviving cells of a
+field, or a mark that is the negative of a tiling, is *one object* if
+nothing else remains on screen when it lands, and *tiled* if the tiling stays.

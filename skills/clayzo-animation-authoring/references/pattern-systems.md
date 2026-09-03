@@ -57,6 +57,13 @@ split-field piece are not a rigid copy of each other — measure each.
 
 ## Seams
 
+Quote bleed in the pixels of the smallest render you will inspect: 0.6 px at
+1080 is 0.2 px on a 360 px sheet, where both antialiased edges fall in one
+pixel and every join shows a hairline. Use 0.3–0.6 px for the deliverable
+and expect hairlines on the small sheet; if the deliverable itself is small,
+bleed 1–2 px. Bleed interior edges only — a symmetric bleed on edge cells
+overhangs the canvas.
+
 Two same-colour shapes that abut show the background as a hairline where
 both antialiased edges meet, and a circle tangent to a flat edge shows a
 sliver for a stretch either side of the tangent point. Overlap by a fraction

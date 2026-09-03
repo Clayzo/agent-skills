@@ -99,7 +99,9 @@ starts on tick 0 counts as motion, so start drifts after the still.
 
 1. 0.0–0.1 s — a still frame. The resting state must read on its own.
 2. 0.1–0.5 s — the backdrop system arrives (zoom, cascade, tiles).
-3. 0.4–0.7 s — the hero pops, with the piece's one overshoot.
+3. 0.4–0.7 s — the hero pops, with the piece's one overshoot. A hero that
+   is *built* by a front (a sweep, a pour, a draw-on) lands when the front
+   finishes, later by construction; its overshoot is the lock at the end.
 4. 0.6–1.1 s — containers and the title: fade and settle, not slide.
 5. 1.0–1.8 s — secondary content (numerals, subtitles), one bounce.
 6. 1.3–2.0 s — punctuation (dots, badges), irregular order.

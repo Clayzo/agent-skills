@@ -137,6 +137,9 @@ plausible before it was noticed.
 - Frames are transparent wherever nothing is drawn; `canvas.backgroundColor`
   is metadata. Draw a full-canvas `rect` as the first root node, or exports
   come out on black.
+- A hold-cut track (a row that jumps at one tick and drops back two frames
+  later) needs a rest keyframe at tick 0 as well, or the node sits in its
+  jumped state from the start.
 - A keyframed track's first value holds before its first keyframe. A numeral
   that scales from 0.5 at 1.0 s is sitting there at half size from tick 0
   unless its `inTick` is the cue.

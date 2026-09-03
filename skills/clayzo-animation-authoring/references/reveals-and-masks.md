@@ -72,6 +72,15 @@ front clears it. Over a lattice, a band that opens from its centre shows the
 outer units as crescents during its creep tail; align the band to lattice
 rows or accept the 0.4 s.
 
+**Trim, honestly.** While `trim.end` is partial the drawn portion is straight
+chords between the path's vertices — a five-vertex circle draws as a pentagon
+until the last frame. Subdivide arcs to 7.5° or finer (a circle is 48
+vertices) for any path that will be drawn on. A trimmed stroke of zero length
+with round caps draws a dot; start `end` at 0.002 or accept the dot as the
+pen touching down. `trim` applies to the whole node, so give each stroke its
+own node when strokes must draw in sequence. A path node's stroke width
+scales with the node's transform like a group's does.
+
 **Path morph.** A keyframed `path` interpolates vertex by vertex when the
 contour and vertex counts match, and a stroke `width` keyframes with it: an
 ellipse drawn with `trim` can lift off a page and become a circle mark over
