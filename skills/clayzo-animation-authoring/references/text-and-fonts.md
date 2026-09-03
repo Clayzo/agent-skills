@@ -1,5 +1,10 @@
 # Text and fonts
 
+A wordmark of up to six letters in a geometric sans is a fifteen-minute job
+from rings and pills — two rings for the o's, the same stroke bent into an L
+or a p — and needs no font at all. When no brand face is supplied, prefer
+that: it makes the name part of the system, and it packages.
+
 Type as geometry: where a `text` node actually draws, why it sometimes draws
 nothing, and how to make a stand-in face match a proprietary one.
 

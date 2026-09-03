@@ -62,6 +62,13 @@ in this order, in writing, before authoring:
    entrance order that reads as designed. Fade-and-settle is for type, not
    for the hero.
 
+## Order of work
+
+Art direction first (this file), then map the choice onto the five roles from
+`case-studies.md`. The roles can collapse: in a one-word piece the wordmark
+is hero and title, and the lattice is backdrop and container. Do not invent
+a container because the list has one.
+
 ## The poster test
 
 Render the settled frame at 360 px. If it would not work as a poster on a

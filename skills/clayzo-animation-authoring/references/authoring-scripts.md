@@ -124,7 +124,7 @@ than whatever it should refract.
 |---|---|
 | `childIds` on a group | `children` |
 | `radiusX` / `radiusY` on an ellipse | `size: constant({ width, height })` |
-| `fill: { color }` | `style: { fill: { color, opacity } }` |
+| `fill: { color }` | `style: { fill: { color: constant(c), opacity: constant(1) } }` — every colour is an animatable |
 | `{ segments: [{ from, to }] }` | `{ kind: "keyframed", keyframes: [...] }` |
 | a number parameter with just a value | also needs `minimum` and `maximum` |
 | a partial transform | all five of position, anchor, scale, rotation, skew |
@@ -172,6 +172,11 @@ plausible before it was noticed.
 - `PathVertex.inTangent` and `outTangent` are offsets from the vertex's own
   `point`, not absolute positions.
 - Colour channels are 0–1 floats, not 0–255.
+- Only a *clip* node crashes at scale 0 (its transform is inverted). Ordinary
+  nodes and groups at scale 0 simply draw nothing.
+- Nodes that never change are cached as static pictures and cost nothing per
+  frame; keep static geometry in its own nodes rather than folding it into
+  animated ones.
 - Text `wrap` defaults to wrapping inside the box; set `wrap: "none"` on
   single lines. A glyph the face lacks draws as a hollow box with no warning
   (the "№" and "·" family are the usual casualties); keep to ASCII unless the

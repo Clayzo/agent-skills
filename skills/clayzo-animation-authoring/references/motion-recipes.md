@@ -39,6 +39,22 @@ from its left edge (a clip rect anchored on the leading edge, `scale.x`
 show it, it is a stall, not a beat: units at least 8 px at that size and at
 least 12 % luminance contrast against the field.
 
+## Overshoot is scale-aware
+
+The 1.18 plateau was measured on a hero a third of the frame wide. Multiply
+the settled width by the plateau: if the result exceeds 90 % of the frame,
+reduce the plateau (a wordmark at 82 % of the width gets 1.06, not 1.18) or
+the settled size.
+
+## Colour changes
+
+A hue change between two saturated colours is a cut, never a ramp — the
+midpoint of coral and cobalt is olive mud. Flip the colour on a hold at the
+bottom of a press or pop, or behind a front (a pour, a wipe). Ramps are for
+grey → colour and colour → grey only. "Visible" for a backdrop means a
+relative-luminance difference of at least 0.12 (on 0–1) between unit and
+field.
+
 ## Scale
 
 A teaser is not a widget. The hero and its container together span at least

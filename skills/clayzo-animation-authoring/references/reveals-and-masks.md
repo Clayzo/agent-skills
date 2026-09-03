@@ -62,6 +62,15 @@ and animate `scale.x` from 0.001 to 1 (never 0 — see the clip contract).
 Pair with a settle on the content (scale 1.12 → 1.0) so it lands rather than
 stops.
 
+**Pour.** A clip rect anchored on its bottom edge with `scale.y`
+0.001 → 1 on the flood ease, tilted ±4° so the front reads as liquid rather
+than a wipe; alternate the tilt on successive pours. Anything the pour
+carries (a new field colour, recoloured units, a numeral) simply exists inside
+the clipped group, and the previous state is dropped a few frames after the
+front clears it. Over a lattice, a band that opens from its centre shows the
+outer units as crescents during its creep tail; align the band to lattice
+rows or accept the 0.4 s.
+
 **Path morph.** A keyframed `path` interpolates vertex by vertex when the
 contour and vertex counts match, and a stroke `width` keyframes with it: an
 ellipse drawn with `trim` can lift off a page and become a circle mark over
