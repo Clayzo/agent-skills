@@ -54,12 +54,10 @@ tread, box. The geometry language comes from one of them, so the product is
 *in* the piece even with no copy. A product teaser shows the product unless
 the brief says abstract; a year in review for a shop shows what the shop
 makes. Wordplay on the name is welcome as the *second* idea, not instead of
-the product. And the noun must *read* as the noun on a 360 px sheet — in
-silhouette, as a graphic shape: a bun has shoulders and a flat base, a pure
-ellipse is a hill; a lug is a pill with a flat side. That is a test of the
-silhouette, not a licence to illustrate: no bite marks, chips, laces or
-faces drawn on it. The mark, not the picture. Render the silhouette alone
-on the field before building anything on it.
+the product. And the noun must *read* as the noun on a 360 px sheet: a bun
+has shoulders and a flat base, a pure ellipse is a hill; a lug is a pill
+with a flat side, not a capsule. Render the silhouette alone on the field
+before building anything on it.
 
 ## The choice
 
@@ -88,11 +86,8 @@ in this order, in writing, before authoring:
    A dark ground with one accent is allowed only when the brief says dark
    mode, and then the accent goes big — not a 3 px caret.
 4. **Scale before anything moves.** The system fills the frame: high-contrast
-   content spans at least 80 % of the width *and*, in portrait, at least
-   60 % of the height — a word alone in the middle of a 9:16 field is a
-   widget however wide it is; give it a system, a field colour or a hero
-   above it. The hero alone is at least a third of the frame's shorter
-   edge. A tiled backdrop is big too — units at
+   content spans at least 80 % of the width; the hero alone is at least a
+   third of the frame's shorter edge. A tiled backdrop is big too — units at
    least 12 % of the shorter edge on a pitch no more than 1.6 × the unit, so
    it reads as a system, not wallpaper. Small is the default failure.
 5. **Words: one or none.** A wordmark or one word spanning 70–85 % of the
