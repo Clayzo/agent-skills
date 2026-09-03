@@ -5,14 +5,14 @@ description: Author or edit Clayzo animation documents and interactive animated 
 
 # Clayzo animation authoring
 
-Read [authoring scripts](references/authoring-scripts.md) and [motion fundamentals](references/motion-fundamentals.md) for every authoring task.
+Read [authoring scripts](references/authoring-scripts.md), [art direction](references/art-direction.md) and [motion fundamentals](references/motion-fundamentals.md) for every authoring task. Write the art-direction choice (verb, geometry, palette, scale, words) before authoring a node.
 
 Load only the additional references the brief needs:
 
 - Composition or text hierarchy: [composition and typography](references/composition-typography.md)
 - Product feedback, states, or reduced motion: [product microinteractions](references/product-microinteractions.md)
 - Cursor, hover, press, drag, or bound inputs: [pointer interaction](references/pointer-interaction.md)
-- Product surfaces, application chrome, brand marks, or shared-element morphs: [product UI craft](references/product-ui-craft.md)
+- Product surfaces, application chrome, or shared-element morphs: [product UI craft](references/product-ui-craft.md)
 - Seamless or intentionally cut loops: [loop design](references/loop-design.md)
 - Camera orbit, depth, parallax, or 2.5D: [orbit camera](references/orbit-camera-25d.md)
 - Glass or backdrop refraction: [glass and refraction](references/glass-refraction.md)

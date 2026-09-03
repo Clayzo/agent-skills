@@ -14,7 +14,10 @@ one that is usually better than either: layering something opaque on top.
 - The clip node's transform applies in the group's coordinate space, so
   position it where the reveal starts, in the same units as the children.
 - Animate the clip's `size`. A zero-size clip draws nothing, so the revealed
-  shape can exist from tick 0 and appear only as the clip opens.
+  shape can exist from tick 0 and appear only as the clip opens. Never animate
+  a clip's `scale` to 0: a singular transform crashes the renderer with an
+  error that names no node. Use `size`, or a scale of 0.001 pinned just
+  outside the frame, for a clip that grows from one edge.
 - One level of clipping is fine for the WebGL player; nested clips and mattes
   need CanvasKit, and `checkCoverage` will say so. Prefer a clip over a matte
   whenever an outline is all you need.
@@ -52,9 +55,17 @@ Arc angles are degrees, 0° along +x, increasing clockwise on screen (y down);
 `clockwise` is the direction of travel from `startAngle` to `endAngle`, so
 normalise so that the end is past the start in that direction.
 
-**Wipe from an edge.** A clip rect anchored on the leading edge with
-`size.width` animated. Pair with a settle on the content (scale 1.12 → 1.0)
-so it lands rather than stops.
+**Wipe from an edge.** A rect draws centred on its position, so growing
+`size.width` opens from the middle. For an edge wipe put the clip rect's
+`anchor` on its leading edge (`x = −width/2`), its `position` on that edge,
+and animate `scale.x` from 0.001 to 1 (never 0 — see the clip contract).
+Pair with a settle on the content (scale 1.12 → 1.0) so it lands rather than
+stops.
+
+**Path morph.** A keyframed `path` interpolates vertex by vertex when the
+contour and vertex counts match, and a stroke `width` keyframes with it: an
+ellipse drawn with `trim` can lift off a page and become a circle mark over
+0.5 s with one track. `trim` takes `start`/`end` as 0–1.
 
 **Occlusion instead of a mask.** If a foreground element covers the seam — a
 starburst over stripe ends, a band over the middle of numerals — do not mask.

@@ -135,9 +135,17 @@ not on every edit.
 - `review` renders at 512 px and its sampler weights keyframe density, so a
   pattern of hundreds of popping units takes every sample. Treat the packet
   as the error check and your own sample sheets as the design check.
-- Cost on the CPU backend is roughly 1.5–3 s per 1080 × 1920 frame with no
-  effects at all; a ten-second story is ten minutes. Progress with an ETA is
-  printed to stderr. Anything longer than two seconds should be exported from
-  `clayzo preview` or with `--backend browser`.
+- Export cost is per *layer*, not per second. A flat document (rects,
+  ellipses, text, a few clips) renders at 0.05–0.4 s per 1080p frame on the
+  CPU; every node with `opacity` below 1, every isolated group, every drop
+  shadow and every effect adds an offscreen surface per frame, and that is
+  how a story of sixty translucent stains takes seventeen minutes. Progress
+  with an ETA is printed to stderr; if the first ETA exceeds a minute, export
+  from `clayzo preview` or with `--backend browser`.
+- `review.json` layout: `analysis.diagnostics` is the list that matters;
+  `critique.diagnostics` repeats it with confidence; `frames[].rendererDiagnostics`
+  carry per-frame renderer messages under `level`. The sampler never includes
+  tick 0 and its `loop_seam` compares sampled ticks, so use
+  `render-frame --seam` for the real seam.
 - `export` writes a `<output>.mp4.preview.png` sheet of the first twelve
   frames beside the file; it is a convenience, not a deliverable.

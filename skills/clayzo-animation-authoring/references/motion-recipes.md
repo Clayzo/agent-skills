@@ -27,10 +27,13 @@ All durations were measured at 60 fps (4 ticks per frame). At 30 fps a 0.10 s
 pop is three frames and still reads as a pop; keep durations in seconds and
 snap every keyframe to the rate the piece will play at.
 
-**Light on dark does not fade.** A cream or white hero at partial opacity over
-a dark field is grey mud for the six frames the ramp lasts. Scale from zero
-and let the silhouette do the entrance; reserve opacity ramps for dark shapes
-on light grounds, or for elements the same luminance as their ground.
+**Large light shapes on dark do not fade.** A cream or white *filled shape*
+at partial opacity over a dark field is grey mud for the six frames the ramp
+lasts; scale it from zero and let the silhouette do the entrance. Type and
+thin strokes are different — their partial-alpha frames are too small to
+read as mud — so a title on a dark field still fades and settles, or wipes on
+from its left edge (a clip rect anchored on the leading edge, `scale.x`
+0.001 → 1) with the same settle.
 
 **A backdrop beat must be visible.** If the sample sheet at 360 px does not
 show it, it is a stall, not a beat: units at least 8 px at that size and at

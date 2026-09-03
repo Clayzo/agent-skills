@@ -172,6 +172,13 @@ plausible before it was noticed.
 - `PathVertex.inTangent` and `outTangent` are offsets from the vertex's own
   `point`, not absolute positions.
 - Colour channels are 0–1 floats, not 0–255.
+- Text `wrap` defaults to wrapping inside the box; set `wrap: "none"` on
+  single lines. A glyph the face lacks draws as a hollow box with no warning
+  (the "№" and "·" family are the usual casualties); keep to ASCII unless the
+  face is known to carry the character.
+- `EffectNode.capability` is required and unvalidated: `{ requires:
+  ["image-filter"], fallback: "passthrough", maxTemporarySurfaces: 1 }` for
+  filters, `["runtime-effect"]` for shader effects.
 - Author at the frame rate the piece will play at (60 fps is 4 ticks per
   frame at 240 tps) and snap every keyframe to it.
 
