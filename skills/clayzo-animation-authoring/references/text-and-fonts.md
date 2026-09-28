@@ -20,11 +20,12 @@ nothing, and how to make a stand-in face match a proprietary one.
   `text.shaping_fallback` and `text.exact_shaping_unavailable` warnings are
   normal; they mean deterministic CanvasKit metrics were used, not that the
   font is missing.
-- `fontWeight` does not choose a weight. Bold is faked by emboldening at
-  600 and above, and a variable font loads at its default instance. For a
-  real heavy weight, instance the variable font at the weight you need
-  (`fontTools varLib.instancer … wght=800`) and ship that static file as the
-  asset.
+- `fontWeight` sets a variable font's weight: a face with a `wght` axis is
+  drawn at that weight, clamped to the axis. A static face draws as it is,
+  and at 600 and above one lighter than semibold is emboldened (faked), as
+  browsers do. Kerning comes from the font. There are no ligatures, and no
+  shaping for right-to-left or complex scripts: one glyph per character,
+  left to right.
 - A font asset's `uri` resolves relative to the document on disk. Keep the
   file beside the document (`fonts/…`) so packaging, the terminal export and
   the preview all find it.
@@ -32,14 +33,13 @@ nothing, and how to make a stand-in face match a proprietary one.
   family such as Manrope or Inter) in `fonts/` beside the document and point a
   `font` asset at it. System faces render locally but cannot be embedded or
   packaged, and fail on any other machine.
-- `fontAssetId` selects the file. The run's `fontWeight` still emboldens at
-  600 and above, so set it to 400–500 on a run whose asset is already a bold
-  face; a `.ttc` collection loads its first face and there is no face index.
+- `fontAssetId` selects the file; a `.ttc` collection loads its first face
+  and there is no face index.
   Leave `letterSpacing` at 0 (centring ignores tracking) and `verticalAlign`
   at `"top"`.
 - Measure before trusting a size. Render one probe frame and read the run's
   pixel extents. Manrope ExtraBold sets capitals at 0.74 × size, x-height at
-  0.55 ×, descenders at 0.24 ×; "Wrapped" at 101 px is 441 px wide.
+  0.55 ×, descenders at 0.24 ×; "Wrapped" at 101 px is 437 px wide.
 
 ## Scaling and anchoring a run
 
