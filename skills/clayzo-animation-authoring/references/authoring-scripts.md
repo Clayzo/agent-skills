@@ -5,9 +5,15 @@ other skills in this directory are about what to build, not how.
 
 If the project is not initialized yet, run `npx clayzo@latest init`. The
 initializer installs the typed authoring package, the lightweight WebGL player,
-the local CLI (including the CanvasKit preview/export dependency), and the
-Clayzo skills. Add the CanvasKit website player only when the integration
-actually needs full-fidelity embedded playback.
+the CLI (including the CanvasKit preview/export dependency), and the Clayzo
+skills. Run without a terminal, it adds the CLI to the project as a dev
+dependency. Add the CanvasKit website player only when the integration actually
+needs full-fidelity embedded playback.
+
+When a command prints that a newer clayzo is out, finish the task and tell the
+person. The command the notice names updates the packages, the CLI and these
+skills together; it asks before changing anything, and without a terminal it
+needs `--yes`.
 
 ## Decision principles
 - Write TypeScript against the types, never JSON by hand. The shapes are
