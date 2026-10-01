@@ -85,6 +85,7 @@ should look like is not, and that part is yours.
 ## Cost
 
 Every pixel of the input runs the whole shader, and CanvasKit has no fast CPU
-path for SkSL — a moderately complex shader is seconds per frame in a terminal
-render and milliseconds on a GPU. Author and export from `clayzo preview`; see
+path for SkSL — a moderately complex shader is seconds per frame on the CPU and
+milliseconds on a GPU. `render-frame` always draws on the CPU; author in
+`clayzo preview`, and `clayzo export` uses the GPU when it can. See
 `previewing-work.md`. Measure one frame before tuning a look.

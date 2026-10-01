@@ -93,9 +93,9 @@ the pane covers, not the canvas. Nine overlapping shards on a 1920×1080 frame
 come to about 1.4× the canvas in effect pixels.
 
 That matters most for export: SkSL runtime effects have no fast CPU path, so a
-glass-heavy frame that draws in ~36 ms on a GPU takes tens of seconds in a
-terminal export. Preview and export from `clayzo preview` for
-anything with glass in it — see `previewing-work.md`.
+glass-heavy frame that draws in ~36 ms on a GPU takes tens of seconds on the
+CPU. `clayzo export` draws it on the GPU when the machine has one and a
+Chromium-based browser — see `previewing-work.md`.
 
 ## Anti-patterns
 

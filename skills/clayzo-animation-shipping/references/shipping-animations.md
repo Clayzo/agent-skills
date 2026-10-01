@@ -38,10 +38,10 @@ clayzo export hero.json out.mp4 --format mp4 --tier final
 clayzo render-frame hero.json poster.png --tick 300
 ```
 
-`export` renders on the CPU, on up to eight cores at once. With a browser on this
-machine, export from `clayzo preview`, or add `--backend browser`, to render on
-the GPU instead: far faster for glass, custom shaders and other effects (see
-`previewing-work.md`).
+`export` renders on this machine's GPU when that is faster, in a Chrome, Edge,
+Brave or Chromium it starts headless: far faster for glass, custom shaders and
+other effects. Otherwise it renders on the CPU, on up to eight cores at once.
+`--backend cpu` or `--backend gpu` forces one (see `previewing-work.md`).
 
 Video comes from the same renderer as playback, so it is pixel-exact. Runtime
 effects, 2.5D projection, and interaction bindings do not survive conversion

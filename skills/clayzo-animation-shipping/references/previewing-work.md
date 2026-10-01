@@ -60,8 +60,8 @@ nine-glass-shard section of a 1920x1080 document, **36 ms a frame against
 quality tiers, the same verification.
 
 Two things worth knowing. GPU and CPU Skia are not bit-identical — about 0.16
-mean channel on this corpus — so a browser export matches the preview you were
-looking at rather than what a terminal export produces. And the browser has to
+mean channel on this corpus — so a GPU export matches the preview you were
+looking at rather than a CPU export. And the browser has to
 stay open, because it is doing the work.
 
 **Stop it when you are done.** It holds a port until it is killed, and it
@@ -79,9 +79,12 @@ It also stops itself after ten minutes with no browser attached, so a forgotten
 one does not outlive the session — but an agent that started it should not rely
 on that.
 
-An agent that wants the speed without a person clicking anything can use
-`clayzo export hero.json out.mp4 --format mp4 --backend browser`, which starts
-the same server, prints its URL, and waits for a browser to connect.
+`clayzo export` gets the same speed with nobody clicking anything. When a
+document draws faster on the GPU, it starts a Chrome, Edge, Brave or Chromium
+installed on the machine, headless, and draws there; with no such browser or no
+hardware GPU it draws on the CPU. A `[render]` line on stderr names the GPU when
+one draws. `--backend cpu` forces the CPU; `--backend browser` waits for a
+person to open the page, so an agent should not use it.
 
 ## The loop
 
@@ -140,8 +143,8 @@ not on every edit.
   CPU; every node with `opacity` below 1, every isolated group, every drop
   shadow and every effect adds an offscreen surface per frame, and that is
   how a story of sixty translucent stains takes seventeen minutes. Progress
-  with an ETA is printed to stderr; if the first ETA exceeds a minute, export
-  from `clayzo preview` or with `--backend browser`.
+  with an ETA is printed to stderr; if the CPU is drawing and the first ETA
+  exceeds a minute, export from `clayzo preview`.
 - `review.json` layout: `analysis.diagnostics` is the list that matters;
   `critique.diagnostics` repeats it with confidence; `frames[].rendererDiagnostics`
   carry per-frame renderer messages under `level`. The sampler never includes
