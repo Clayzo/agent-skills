@@ -76,20 +76,14 @@ worth the substantially larger transfer.
 
 A document's audio nodes play in both players and export with the video.
 
-- **Export:** mp4 (AAC), webm (Opus) and mov (PCM) carry the sound by default,
-  mixed exactly as the players play it and as long as the picture. gif, webp,
-  png and svg have no sound track and say so. `--no-audio` exports the picture
-  alone. A missing audio file fails the export, naming the asset. An error that
-  the ffmpeg "cannot export it" means a clayzo older than its sound support or
-  an `FFMPEG_BIN` without audio: run `clayzo update`, or use `--no-audio`.
-- **Players start muted.** The page decides when to make sound, and browsers
-  start it only from a click or key press. Show a sound control when
-  `player.hasAudio`, and call `player.setMuted(false)` from it (or pass
-  `muted: false` and call `play()` from a click). The default loaders fetch
-  audio from each asset's `uri`; a `.clayzo` carries its own. `<clayzo-player>`
-  needs the `sound` attribute. Audio does not affect `checkCoverage`. The
-  native iOS/macOS player plays it too, also muted until `isMuted = false`.
-- **Package** embeds audio files like images; a missing one fails packaging.
+- **Export:** mp4, webm and mov include the sound; other formats are silent.
+  `--no-audio` leaves it out. If an export says its ffmpeg can't export sound,
+  run `clayzo update`.
+- **Players start muted**, and browsers allow sound only after a click or key
+  press. Show a sound control when `player.hasAudio` and call
+  `player.setMuted(false)` from it. If you pass your own `loaders`, include
+  `audioAssetLoader`; a `.clayzo` carries its audio. `<clayzo-player>` needs
+  the `sound` attribute; the iOS player, `isMuted = false`.
 
 ## Fonts
 

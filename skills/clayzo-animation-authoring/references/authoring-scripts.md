@@ -209,18 +209,13 @@ score: { ...base("score", 0, 0), type: "audio", assetId: "score",
          volume: constant(1), playbackRate: constant(1), startOffsetTick: 0, loop: false },
 ```
 
-- `startOffsetTick` is the tick the file's first sample plays at, a timeline
-  position like `inTick`. The node is heard only while it is visible and inside
-  its own `inTick`/`outTick` and every enclosing group's, so trim and place a
-  cue with those, not by editing the file.
-- `volume` is a linear gain (1 as recorded); keyframe it for fades.
-  `playbackRate` 1 is as recorded and 0 is silent. `loop` repeats the file, or
-  the first `asset.durationTicks` of it. Several audio nodes mix.
-- Use WAV, MP3 or M4A: every browser plays them. The `uri` resolves beside the
-  document, like images.
-- `render-frame` and `review` have no sound. `clayzo preview` plays it (press
-  play), and an mp4 export confirms it: `metadata.audioMuxed` is true and
-  `verification.audioSeconds` matches the duration.
+- `startOffsetTick` is the tick the file starts playing at. The node is heard
+  only while visible and between its `inTick` and `outTick`; trim a cue with
+  those rather than by editing the file.
+- `volume` 1 plays as recorded; keyframe it for fades. Several audio nodes mix.
+- Use WAV, MP3 or M4A files.
+- `render-frame` and `review` have no sound. To confirm it, export an mp4 and
+  check `metadata.audioMuxed` is true in the JSON it prints.
 
 ## Interactivity
 
