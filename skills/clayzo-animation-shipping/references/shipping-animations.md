@@ -87,7 +87,8 @@ A document's audio nodes play in both players and export with the video.
   `player.hasAudio`, and call `player.setMuted(false)` from it (or pass
   `muted: false` and call `play()` from a click). The default loaders fetch
   audio from each asset's `uri`; a `.clayzo` carries its own. `<clayzo-player>`
-  needs the `sound` attribute. Audio does not affect `checkCoverage`.
+  needs the `sound` attribute. Audio does not affect `checkCoverage`. The
+  native iOS/macOS player plays it too, also muted until `isMuted = false`.
 - **Package** embeds audio files like images; a missing one fails packaging.
 
 ## Fonts
