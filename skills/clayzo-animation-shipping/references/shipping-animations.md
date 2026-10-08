@@ -29,11 +29,11 @@ primarily about file size — it is about what the artefact has to do.
 |---|---|
 | respond to a cursor, or expose inputs a page can set | `.clayzo` + a player |
 | play in a page you control, without interactivity | the document + a player |
-| go anywhere that takes video | `mp4`, or `mov` for alpha |
+| go anywhere that takes video | `mp4`, or `mov` for alpha (both carry sound) |
 | be a still — thumbnail, poster, OG image | `png` |
 
 ```bash
-clayzo package hero.json hero.clayzo      # document + fonts + images
+clayzo package hero.json hero.clayzo      # document + fonts + images + audio
 clayzo export hero.json out.mp4 --format mp4 --tier final
 clayzo render-frame hero.json poster.png --tick 300
 ```
@@ -71,6 +71,24 @@ If undecided, start with WebGL and make `checkCoverage` a build gate. CanvasKit
 is the deliberate fallback for unsupported constructs, design tools with
 unbounded user-authored content, and integrations where exact export parity is
 worth the substantially larger transfer.
+
+## Sound
+
+A document's audio nodes play in both players and export with the video.
+
+- **Export:** mp4 (AAC), webm (Opus) and mov (PCM) carry the sound by default,
+  mixed exactly as the players play it and as long as the picture. gif, webp,
+  png and svg have no sound track and say so. `--no-audio` exports the picture
+  alone. A missing audio file fails the export, naming the asset. An error that
+  the ffmpeg "cannot export it" means a clayzo older than its sound support or
+  an `FFMPEG_BIN` without audio: run `clayzo update`, or use `--no-audio`.
+- **Players start muted.** The page decides when to make sound, and browsers
+  start it only from a click or key press. Show a sound control when
+  `player.hasAudio`, and call `player.setMuted(false)` from it (or pass
+  `muted: false` and call `play()` from a click). The default loaders fetch
+  audio from each asset's `uri`; a `.clayzo` carries its own. `<clayzo-player>`
+  needs the `sound` attribute. Audio does not affect `checkCoverage`.
+- **Package** embeds audio files like images; a missing one fails packaging.
 
 ## Fonts
 

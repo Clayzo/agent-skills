@@ -22,6 +22,7 @@ Load only the additional references the brief needs:
 - Fills that flood, wipe, drain, or open from a point or edge, clip paths, mattes: [reveals and masks](references/reveals-and-masks.md)
 - Entrance and exit timing, staggers, pops, overshoots, or the beat structure of a piece: [motion recipes](references/motion-recipes.md)
 - Any text node, titles, numerals, placeholder copy, or a font that must match a reference: [text and fonts](references/text-and-fonts.md)
+- Soundtracks, sound effects or any audio node: the Audio section of [authoring scripts](references/authoring-scripts.md)
 - Logos, wordmarks, badges, pictograms, or shapes built from primitives: [shape construction](references/shape-construction.md)
 - Recreating or verifying against a video, mockup, or existing motion: [matching a reference](references/matching-a-reference.md)
 - A brief with no reference at all — start from [case studies](references/case-studies.md) and pick the five roles before any shape.

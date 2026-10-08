@@ -196,6 +196,32 @@ plausible before it was noticed.
 - Author at the frame rate the piece will play at (60 fps is 4 ticks per
   frame at 240 tps) and snap every keyframe to it.
 
+## Audio
+
+A soundtrack or a sound effect is an `audio` node playing an `audio` asset.
+It draws nothing, but it is a node like the others: it needs the common fields
+and must be reachable from `rootNodeIds`.
+
+```ts
+assets: { score: { id: "score", type: "audio", uri: "score.wav", mimeType: "audio/wav" } },
+// in composition.nodes, and listed in rootNodeIds:
+score: { ...base("score", 0, 0), type: "audio", assetId: "score",
+         volume: constant(1), playbackRate: constant(1), startOffsetTick: 0, loop: false },
+```
+
+- `startOffsetTick` is the tick the file's first sample plays at, a timeline
+  position like `inTick`. The node is heard only while it is visible and inside
+  its own `inTick`/`outTick` and every enclosing group's, so trim and place a
+  cue with those, not by editing the file.
+- `volume` is a linear gain (1 as recorded); keyframe it for fades.
+  `playbackRate` 1 is as recorded and 0 is silent. `loop` repeats the file, or
+  the first `asset.durationTicks` of it. Several audio nodes mix.
+- Use WAV, MP3 or M4A: every browser plays them. The `uri` resolves beside the
+  document, like images.
+- `render-frame` and `review` have no sound. `clayzo preview` plays it (press
+  play), and an mp4 export confirms it: `metadata.audioMuxed` is true and
+  `verification.audioSeconds` matches the duration.
+
 ## Interactivity
 
 `withInteraction(scene, contributions)` layers pointer behaviour onto a
@@ -205,5 +231,5 @@ finished scene. Reach for a macro before writing a binding graph by hand — see
 ## Packaging
 
 `packageClayzoBundle(document, { assetBytes })` produces a `.clayzo`: the
-document with its fonts and images embedded. It refuses to build one whose text
+document with its fonts, images and audio embedded. It refuses to build one whose text
 would render as nothing, which is the last cheap moment to catch a missing font.

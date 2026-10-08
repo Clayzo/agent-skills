@@ -9,4 +9,4 @@ Always read [shipping animations](references/shipping-animations.md).
 
 Before final output, read both [previewing work](references/previewing-work.md) and [self-review](references/self-review.md). If the artifact loops, also read [loop design](references/loop-design.md).
 
-Ship the exact reviewed revision. Confirm renderer coverage, fonts and assets, playback behavior, deployment paths, and export constraints. Use `clayzo` commands and the stable `createPlayer()` / `PlayerHandle` renderer contract. Playback runtimes never authenticate.
+Ship the exact reviewed revision. Confirm renderer coverage, fonts and assets (audio included), playback behavior, sound, deployment paths, and export constraints. Use `clayzo` commands and the stable `createPlayer()` / `PlayerHandle` renderer contract. Playback runtimes never authenticate.
