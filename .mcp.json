@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "clayzo": {
+      "type": "http",
+      "url": "https://app.clayzo.com/api/clayzo/mcp"
+    }
+  }
+}

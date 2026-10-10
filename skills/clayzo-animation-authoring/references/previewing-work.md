@@ -42,6 +42,23 @@ motion.
 Both commands print JSON to stdout with the output path, the ticks rendered,
 dimensions, and a diagnostics count.
 
+## Signing in
+
+`render-frame`, `review`, `package`, `export` and `preview` need a signed-in
+Clayzo account: `clayzo login` on the person's machine, or `CLAYZO_TOKEN` in
+CI. Where the CLI can't reach Clayzo (it says `CLAYZO_OFFLINE`), such as
+Claude's sandbox, call the Clayzo connector's `get_render_pass` and put the
+pass in `CLAYZO_TOKEN` for each command:
+
+```bash
+CLAYZO_TOKEN='clayzo_pass_…' clayzo render-frame hero.json sheet.png --samples 6 --max-dimension 320
+```
+
+A pass lasts an hour; get a new one when the CLI says it expired. If the
+connector isn't connected, ask the person to connect Clayzo rather than
+rendering some other way. Nobody can open `clayzo preview` from a sandbox, so
+deliver with `clayzo export`.
+
 ## The preview server
 
 ```bash
