@@ -72,6 +72,38 @@ is the deliberate fallback for unsupported constructs, design tools with
 unbounded user-authored content, and integrations where exact export parity is
 worth the substantially larger transfer.
 
+Before shipping, run `clayzo review` and act on its `performance.frame_budget`
+and `performance.not_drawn` warnings. Device rows marked "estimate" are hints.
+
+A document with a state machine plays its states by default. Use `setInput`
+and `setState(name)` to drive it, `onStateChange` and `onComplete` to follow
+it, and `currentState` to read it. Pass `stateMachine: false` to play the plain
+timeline, for example in a thumbnail.
+
+## In a page
+
+Use the component or the element rather than a bare canvas: they show a
+poster, load the player only near the viewport, honour reduced motion and label
+the animation for screen readers.
+
+```bash
+clayzo package hero.json hero.clayzo --poster 240   # also writes hero.poster.webp
+```
+
+```tsx
+<ClayzoPlayer document={hero} poster="/hero.poster.webp" posterTick={240} label="A cube folding into the logo" />
+```
+
+```html
+<clayzo-player src="/hero.clayzo" poster="/hero.poster.webp" label="A cube folding into the logo"></clayzo-player>
+```
+
+- Pick the poster tick where the artwork has settled: it is also what readers
+  who asked for reduced motion see.
+- Give `label` (what the animation shows) or `decorative`, one of the two.
+- Do not wrap the player in your own matchMedia, IntersectionObserver or poster
+  crossfade.
+
 ## Sound
 
 A document's audio nodes play in both players and export with the video.

@@ -164,8 +164,13 @@ not on every edit.
   exceeds a minute, export from `clayzo preview`.
 - `review.json` layout: `analysis.diagnostics` is the list that matters;
   `critique.diagnostics` repeats it with confidence; `frames[].rendererDiagnostics`
-  carry per-frame renderer messages under `level`. The sampler never includes
-  tick 0 and its `loop_seam` compares sampled ticks, so use
-  `render-frame --seam` for the real seam.
+  carry per-frame renderer messages under `level`.
+- `review` checks every displayed frame. It reports parts that pop in or
+  shake, siblings that pass through each other, text running off the canvas,
+  text contrast against what is behind it, and whether the last frame meets the
+  first. Each diagnostic names its nodes, and stdout lists each code with its
+  node ids. Fix each warning, or say what was meant. Mark a deliberate hard cut
+  with a marker whose `payload` has `cut: true`. Set `design.tokens.looping` to
+  `false` on a piece that plays once.
 - `export` writes a `<output>.mp4.preview.png` sheet of the first twelve
   frames beside the file; it is a convenience, not a deliverable.

@@ -5,6 +5,12 @@
 - Make enter, update, success, error, and exit states distinguishable without relying on motion alone.
 - Keep interruption safe: new input should retarget rather than queue stale animations.
 
+## States
+- Give each state its own marker (idle, hover, pressed, loading, done) and declare the machine with `stateMachine({ initial }).state(…).on(…).when(…)` and `withStateMachine(document, machine, { inputs, hitAreas })`. Do not write a state machine in host code.
+- Loop the resting state. Play transient states `once`: they hold their last frame and fire `complete`. Use `playback: "scrub"` with a number input for progress.
+- Pointer transitions take `hitArea` to listen on one shape. `when(from, to, { input, operator, value })` lets the host drive states with `setInput` (`loading eq true`, `progress gte 1`).
+- `viaMarker` plays a segment on the way in, and leaving partway reverses it, so author vias that also read well backwards.
+
 ## Diagnostics to inspect
 - First response tick, landing tick, contrast range, flashes, frozen intervals, clipped focus/labels, and reduced-motion alternatives.
 

@@ -35,5 +35,7 @@ frames that are not adjacent on screen.
 - Seam evaluation should include `start`, `start+1`, `end-1`, and `end`.
 - Keep seam difference below `0.02` normalized RGBA unless the loop contains an intentional cut.
 
+`review` names the nodes that jump at the loop point. A piece that rests before cutting back to frame 0 is reported as a cut, not a seam.
+
 ## Adaptation
 Choose cyclical paths for continuous phenomena and explicit cuts for narrative beats. Adjust midpoint and easing from observed seam energy rather than applying a generic ping-pong.
