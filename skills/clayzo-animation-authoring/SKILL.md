@@ -10,7 +10,7 @@ Read [authoring scripts](references/authoring-scripts.md), [art direction](refer
 Load only the additional references the brief needs:
 
 - Composition or text hierarchy: [composition and typography](references/composition-typography.md)
-- Product feedback, states, or reduced motion: [product microinteractions](references/product-microinteractions.md)
+- Product feedback, states and state machines (idle, hover, pressed, loading, done), or reduced motion: [product microinteractions](references/product-microinteractions.md)
 - Cursor, hover, press, drag, or bound inputs: [pointer interaction](references/pointer-interaction.md)
 - Product surfaces, application chrome, or shared-element morphs: [product UI craft](references/product-ui-craft.md)
 - Seamless or intentionally cut loops: [loop design](references/loop-design.md)

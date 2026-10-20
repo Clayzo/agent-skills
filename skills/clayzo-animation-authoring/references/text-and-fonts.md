@@ -32,7 +32,8 @@ nothing, and how to make a stand-in face match a proprietary one.
 - The package ships no font file. Put a permissively licensed face (an OFL
   family such as Manrope or Inter) in `fonts/` beside the document and point a
   `font` asset at it. System faces render locally but cannot be embedded or
-  packaged, and fail on any other machine.
+  packaged, and fail on any other machine. Give every run a `fontAssetId`:
+  the WebGL web player does not draw a run that names only a family.
 - `fontAssetId` selects the file; a `.ttc` collection loads its first face
   and there is no face index.
   Leave `letterSpacing` at 0 (centring ignores tracking) and `verticalAlign`

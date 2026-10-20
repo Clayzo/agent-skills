@@ -96,10 +96,9 @@ bleed hides it, and a 0.5 px colour overlap is invisible.
   the viewer: keep units at least 8 px at that size and at least 12 %
   luminance contrast against the field. Vignettes that fade a dot field to
   nothing at the edges are fine; a whole field at 7 % contrast is not.
-- Several hundred small units, each with pop keyframes, take every slot in
-  the review sampler, and the hero, title and punctuation go unreviewed.
-  Author beat markers anyway, and check the beats with your own
-  `render-frame --samples` sheets.
+- Several hundred small units, each with pop keyframes, fill `review`'s
+  contact sheet, so the hero, title and punctuation may not appear in it.
+  Check the beats with your own `render-frame --samples` sheets.
 - A slow drift of the whole lattice is motion from its first tick. If the
   piece opens on a still, start the drift after it.
 

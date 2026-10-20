@@ -126,23 +126,26 @@ something. See `loop-design.md`.
 ## Which renderer will play it
 
 If the project ships `@clayzo/webgl-player`, confirm it can draw what you authored —
-mattes, nested clips and colour-space intrinsics in custom shaders need
-`@clayzo/canvaskit-player`:
+mattes, nested clips, Lottie nodes, text with no `font` asset and colour-space
+intrinsics in custom shaders need `@clayzo/canvaskit-player`:
 
 ```ts
-import { checkCoverage } from "@clayzo/webgl-player";
-const coverage = await checkCoverage(document);
+import { checkCoverage, registerFont } from "@clayzo/webgl-player";
+await registerFont("manrope", manropeBytes);    // each font asset by its id, or its text is "not encoded"
+const coverage = await checkCoverage(document); // { supported, reasons }
 ```
 
-An unsupported construct is not an error at play time. The node is simply not
-drawn, and nobody finds out until a user does.
+It compiles custom shaders to check them, so run it in a browser for a
+document that has one. An unsupported construct is not an error at play time.
+The node is simply not drawn, and nobody finds out until a user does.
 
 ## Deeper checks
 
-`clayzo review hero.json packet.json` renders semantic samples across
-several backgrounds and adds diagnostics for blank frames, clipping, contrast
-and motion. Heavier than `render-frame --samples`; worth it before shipping,
-not on every edit.
+`clayzo review hero.json review/` checks every frame for parts that pop,
+shake, collide or run off the canvas, checks text contrast, the loop point and
+web playback cost, and writes a contact sheet. Heavier than
+`render-frame --samples`; run it before delivering, not on every edit. Its
+codes and fixes are in `self-review.md`.
 
 ## What the terminal actually tells you
 
@@ -152,9 +155,6 @@ not on every edit.
 - `--samples N` spreads N ticks evenly and they are not snapped to frames;
   use `--tick` for an exact frame. Twelve `render-frame` calls in parallel
   are cheap.
-- `review` renders at 512 px and its sampler weights keyframe density, so a
-  pattern of hundreds of popping units takes every sample. Treat the packet
-  as the error check and your own sample sheets as the design check.
 - Export cost is per *layer*, not per second. A flat document (rects,
   ellipses, text, a few clips) renders at 0.05–0.4 s per 1080p frame on the
   CPU; every node with `opacity` below 1, every isolated group, every drop
@@ -162,15 +162,5 @@ not on every edit.
   how a story of sixty translucent stains takes seventeen minutes. Progress
   with an ETA is printed to stderr; if the CPU is drawing and the first ETA
   exceeds a minute, export from `clayzo preview`.
-- `review.json` layout: `analysis.diagnostics` is the list that matters;
-  `critique.diagnostics` repeats it with confidence; `frames[].rendererDiagnostics`
-  carry per-frame renderer messages under `level`.
-- `review` checks every displayed frame. It reports parts that pop in or
-  shake, siblings that pass through each other, text running off the canvas,
-  text contrast against what is behind it, and whether the last frame meets the
-  first. Each diagnostic names its nodes, and stdout lists each code with its
-  node ids. Fix each warning, or say what was meant. Mark a deliberate hard cut
-  with a marker whose `payload` has `cut: true`. Set `design.tokens.looping` to
-  `false` on a piece that plays once.
 - `export` writes a `<output>.mp4.preview.png` sheet of the first twelve
   frames beside the file; it is a convenience, not a deliverable.

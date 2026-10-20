@@ -14,12 +14,10 @@ clayzo render-frame loop.json seam.png --seam --max-dimension 400
 Renders the last displayed frame and the first, writes them side by side, and
 reports how far apart they are — against an ordinary frame step, which is the
 comparison that means something. A busy animation moves a lot between any two
-frames; a seam that matches its neighbours is a seam nobody will see.
-
-```
-closes   seam=0.1806   ordinary step=0.1711
-steps    seam=15.8393  ordinary step=0.0165
-```
+frames; a seam that matches its neighbours is a seam nobody will see. The
+printed `verdict` is `closes` when the seam is within 1.6× the larger frame
+step beside it, and `steps` otherwise; `review` judges the loop point the
+same way.
 
 Worth running rather than judging by eye: a step that reads as a flicker in
 motion is often invisible in a contact sheet, because you are looking at two
@@ -33,9 +31,10 @@ frames that are not adjacent on screen.
 
 ## Parameter ranges
 - Seam evaluation should include `start`, `start+1`, `end-1`, and `end`.
-- Keep seam difference below `0.02` normalized RGBA unless the loop contains an intentional cut.
+- `--seam` should say `closes` unless the loop cuts on purpose.
 
-`review` names the nodes that jump at the loop point. A piece that rests before cutting back to frame 0 is reported as a cut, not a seam.
+`review` reports a seam as `motion.loop_seam` and names the nodes that jump.
+`self-review.md` says how to mark an intentional cut or a piece that plays once.
 
 ## Adaptation
 Choose cyclical paths for continuous phenomena and explicit cuts for narrative beats. Adjust midpoint and easing from observed seam energy rather than applying a generic ping-pong.

@@ -171,8 +171,9 @@ plausible before it was noticed.
 - Transforms compose: a child's transform is applied in its parent's local
   space, so a lattice group can drift while every unit pops about its own
   centre.
-- Markers are sample hints for `review`, but keyframe-dense documents drown
-  them; verify beats with your own `render-frame --samples` sheets.
+- Markers are sample hints for `review`'s contact sheet, but keyframe-dense
+  documents drown them; verify beats with your own `render-frame --samples`
+  sheets.
 - Node `opacity` below 1 allocates an offscreen layer for that node on every
   frame. Six hundred fading dots is six hundred layers a frame and a
   ten-minute export. Animate `style.fill.opacity` (and `stroke.opacity`) on
@@ -221,7 +222,9 @@ score: { ...base("score", 0, 0), type: "audio", assetId: "score",
 
 `withInteraction(scene, contributions)` layers pointer behaviour onto a
 finished scene. Reach for a macro before writing a binding graph by hand — see
-`pointer-interaction.md` for which one and why.
+`pointer-interaction.md` for which one and why. Discrete states (idle, hover,
+pressed, loading, done) are a state machine over markers, added with
+`withStateMachine` — see `product-microinteractions.md`.
 
 ## Packaging
 

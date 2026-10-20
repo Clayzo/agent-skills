@@ -58,10 +58,11 @@ operator graphs that connect them to properties.
 - Head and body turns 8–16°; pupil and detail travel 8–15 units.
 
 ## Export
-Bindings have no timeline representation. Video and Lottie exports bake the
-document at its resting input values, so an interactive document must still
-read correctly with the pointer away — compose the interaction on top of a pose
-that stands on its own, rather than relying on the cursor to complete it.
+Bindings have no timeline representation. Video and Lottie exports, stills and
+`review` ignore them and draw the timeline as authored, so an interactive
+document must still read correctly with the pointer away — compose the
+interaction on top of a pose that stands on its own (bindings that `add` to
+it), rather than relying on the cursor to complete it.
 
 ## Adaptation
 Decide what the pointer means before wiring anything: attention (follow,
