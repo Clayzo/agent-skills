@@ -23,7 +23,8 @@ stdout ends with a summary:
   diagnostic, info included, is in `review.json → analysis.diagnostics` with
   its `message` (what happened and what to change), `ticks`, `nodeIds`,
   `region` (composition px) and `evidence`. Renderer messages per frame are in
-  `frames[].rendererDiagnostics`.
+  `frames[].rendererDiagnostics`, graded by `level` where analysis
+  diagnostics use `severity`.
 - Motion, layout and text checks read every displayed frame. Pixel checks read
   the 8–10 frames in the contact sheet (picked around keyframes and markers,
   512 px unless `--max-dimension` or `--full-resolution`), the loop point, and

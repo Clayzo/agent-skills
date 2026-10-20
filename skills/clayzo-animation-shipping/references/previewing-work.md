@@ -35,9 +35,9 @@ Six ticks spread evenly across the document, laid out as one labelled sheet.
 frame — the expensive part is starting CanvasKit, not drawing — and it shows
 whether anything actually moves.
 
-`--max-dimension` bounds the longest side. Use it: a 1920×1080 document sampled
-six times is a large image to look at, and 320 is enough to see composition and
-motion.
+`--max-dimension` bounds the longer side of each frame, not of the sheet. Use
+it: a 1920×1080 document sampled six times is a large image to look at, and
+320 is enough to see composition and motion.
 
 Both commands print JSON to stdout with the output path, the ticks rendered,
 dimensions, and a diagnostics count.
@@ -162,5 +162,6 @@ codes and fixes are in `self-review.md`.
   how a story of sixty translucent stains takes seventeen minutes. Progress
   with an ETA is printed to stderr; if the CPU is drawing and the first ETA
   exceeds a minute, export from `clayzo preview`.
-- `export` writes a `<output>.mp4.preview.png` sheet of the first twelve
-  frames beside the file; it is a convenience, not a deliverable.
+- `export` writes a `<output>.preview.png` sheet beside the file: up to 20
+  frames, 320 px wide, spread across the whole export. It is a convenience,
+  not a deliverable.

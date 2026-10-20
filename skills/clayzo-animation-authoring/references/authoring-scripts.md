@@ -81,7 +81,8 @@ stays out of the frame.
 `ticksPerSecond` is the document's time base (240 is conventional) and
 `frameRate` is what it plays back at. Every `inTick`, `outTick` and keyframe
 `tick` is in ticks. At 240 ticks and 30 fps, one frame is 8 ticks — so
-keyframes off that grid land between frames and never display exactly.
+keyframes off that grid land between frames and never display exactly. A node
+draws from `inTick` up to, not including, `outTick`.
 
 ## Animatables
 

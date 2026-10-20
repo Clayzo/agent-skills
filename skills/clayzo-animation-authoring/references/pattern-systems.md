@@ -69,7 +69,9 @@ both antialiased edges meet, and a circle tangent to a flat edge shows a
 sliver for a stretch either side of the tangent point. Overlap by a fraction
 of a pixel — rects grow 0.6 px, circles 0.3 px — rather than trusting
 tangency. Different colours abutting show the same faint light line; the same
-bleed hides it, and a 0.5 px colour overlap is invisible.
+bleed hides it, and a 0.5 px colour overlap is invisible. These seams are
+between separate nodes: same-colour cells merged into one `path` (nonzero fill)
+abut seam-free with no bleed.
 
 ## Anti-patterns
 

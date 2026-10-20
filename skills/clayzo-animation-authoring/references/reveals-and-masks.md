@@ -60,6 +60,7 @@ normalise so that the end is past the start in that direction.
 `size.width` opens from the middle. For an edge wipe put the clip rect's
 `anchor` on its leading edge (`x = −width/2`), its `position` on that edge,
 and animate `scale.x` from 0.001 to 1 (never 0 — see the clip contract).
+It works the same on y: anchor at `y = ±height/2` and animate `scale.y`.
 Pair with a settle on the content (scale 1.12 → 1.0) so it lands rather than
 stops.
 
@@ -97,6 +98,9 @@ cheaper and it survives the WebGL player.
 - Clipping the grey base as well as the coloured layer.
 - A reach equal to the geometry exactly: the last antialiased pixels finish a
   frame late and the landing looks soft.
+- A clip that stops exactly on a content edge: it leaves an antialiased
+  hairline there. Overshoot the clip under same-coloured content drawn above
+  it as its own node.
 - A `matte` where a `clipPathId` would do. Mattes cost a layer per node and
   lock the document to CanvasKit.
 - Revealing by fading. A flood, wipe or band has a front; a fade has none, and
