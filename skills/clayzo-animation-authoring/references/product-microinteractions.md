@@ -61,6 +61,10 @@ The host sets `progress` as the work runs and fires `reset` afterwards.
 - `viaMarker` plays that marker's ticks on the way in, already in the new
   state. Going back mid-via reverses it from where it is, so author vias that
   read well backwards.
+- Under reduced motion the players show each state at its last frame (vias
+  and `once` states jump to their end, `complete` still fires), so make every
+  state's last frame read on its own. Touch screens have no hover: a touch
+  enters and presses at once.
 - Exports and `review` play the plain timeline, states back to back. Set
   `design.tokens.looping: false`; if review flags a boundary between states
   that no transition plays across, mark it as a cut (`self-review.md`).

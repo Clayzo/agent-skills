@@ -61,11 +61,12 @@ const player = await createPlayer({ canvas, document });
 player.play();
 ```
 
-In a page, use the component or element below instead of a bare canvas.
+In a page, use the component or element below instead of a bare canvas; in
+an app, the Swift player (iOS and macOS, below).
 
 **`@clayzo/webgl-player`** when transfer size is the constraint and you know your
-documents. Run `checkCoverage` first (`previewing-work.md`), and in CI over
-everything you ship.
+documents. Run `checkCoverage(document, loaders)` first (`previewing-work.md`),
+and in CI over everything you ship.
 
 **`@clayzo/canvaskit-player`** when you cannot enumerate the documents in advance,
 when coverage says a document needs it, or when reference-renderer parity is an
@@ -93,7 +94,8 @@ clayzo package hero.json hero.clayzo --poster 240   # also writes hero.poster.we
 
 The poster is the frame at that tick, snapped to a frame; the printed JSON
 gives the tick to pass as `posterTick`. Pick one where the artwork has
-settled: it is also what readers who ask for reduced motion see.
+settled: readers who ask for reduced motion also see it, unless the document
+has states.
 
 Ship the `.clayzo`: it carries fonts, images and audio. A document JSON given
 to the component or `createPlayer` without `loaders` fetches its asset URIs
@@ -126,7 +128,7 @@ export function Hero() {
 | `options` | `createPlayer` options other than `canvas` and `document`. |
 | `poster`, `posterTick` | An image URL or element, shown until the player draws `posterTick` (default 0). |
 | `autoplay` | Plays once revealed. Default `true`. |
-| `reducedMotion` | For readers who ask for less motion: `"still"` (default) holds `posterTick`, `"pause"` stops where it is, `"ignore"` plays. Pointer interaction works in all three. |
+| `reducedMotion` | For readers who ask for less motion: `"still"` (default) holds `posterTick`, `"pause"` stops where it is, `"ignore"` plays. Pointer interaction works in all three, and under `"still"` and `"pause"` a document with states keeps following it, each state shown at its last frame. |
 | `label`, `decorative` | Give one: `label` says what it shows; `decorative` hides it from screen readers. |
 | `fallback` | Shown if the player cannot be created, such as without WebGL2; otherwise the poster stays. |
 | `onReady` | Gets each new player's `PlayerHandle`, once it shows `posterTick`. |
@@ -185,6 +187,10 @@ player.currentState;                // { id, name }; `player.states` lists them 
 - With the component, pass these callbacks in `options` and drive the handle
   `onReady` gives you; `<clayzo-player>` has `setInput()` and `fire()`, and
   `.player` for the rest.
+- `setReducedMotion(true)` is what the component and element do for readers
+  who ask for less motion: vias and `once` states jump to their last frame,
+  so `complete` and its transitions still fire, and a looping state holds
+  still. Call it yourself only around a bare `createPlayer`.
 
 ## Sound
 
@@ -197,18 +203,72 @@ A document's audio nodes play in both players and export with the video.
   press. Show a sound control when `player.hasAudio` and call
   `player.setMuted(false)` from it (`element.player.setMuted(false)` for
   `<clayzo-player>`). If you pass your own `loaders`, include
-  `audioAssetLoader`; a `.clayzo` carries its audio. The iOS player:
-  `isMuted = false`.
+  `audioAssetLoader`; a `.clayzo` carries its audio.
 
 ## Fonts
 
-The thing neither package solves. A document referencing a family by name needs
-those bytes at play time, and if no loader supplies them the text draws
-*nothing* — it does not substitute and it does not warn.
+A document whose text names a font family needs that face at play time; if
+nothing supplies it, both players draw that text as nothing. Package as
+`.clayzo` with a font you may ship and the bundle carries it to either player:
+an OFL face such as Inter as a `font` asset, or the family `Manrope`, which
+`clayzo` supplies. Otherwise pass `loaders.familyFontLoader`, and give
+`checkCoverage(document, loaders)` the same loaders. Don't name a system
+family such as SF Pro: it can't be redistributed, and packaged it adds a
+7.5 MB font. On a Mac, `clayzo` renders and packages every family it doesn't
+supply as SF Pro. `clayzo review` warns with `performance.not_drawn` when the
+WebGL player would leave text undrawn, and with `performance.download_size`
+when fonts make the download heavy.
 
-Give every text run a `fontAssetId`: `@clayzo/webgl-player` draws text only in
-a face the document carries as a `font` asset, so a run that names only a
-family is not drawn there, packaged or not. Packaging as `.clayzo` embeds the
-fonts and ends the problem. Otherwise the host must wire a font loader, and
-`@clayzo/canvaskit-player`'s `onPrewarm` reports `unresolvedFamilies` so this
-is caught in development rather than in production.
+## iOS and macOS
+
+The Swift package `https://github.com/Clayzo/clayzo-swift` (product `Clayzo`,
+iOS 16+, macOS 13+) plays the same `.clayzo`, states included.
+
+```swift
+import Clayzo
+import SwiftUI
+
+struct UploadButton: View {
+  let document: ClayzoDocument      // made once: try ClayzoDocument(bundle: bundle)
+  let images: [String: Data]        // bundle.images
+  @State private var progress = 0.0
+  @State private var state: String?
+
+  var body: some View {
+    ClayzoPlayer(document: document, images: images, inputs: ["progress": .number(progress)],
+                 state: state, label: "Upload")
+      .onStateChange { change in
+        state = change.to.name                       // keep `state` in step with touches
+        if change.to.name == "loading" { upload() }
+      }
+      .onComplete { finished in
+        if finished.name == "done" { progress = 0; state = "idle" }
+      }
+      .placeholder { Image("upload-poster").resizable().scaledToFit() }
+  }
+
+  private func upload() { /* set progress from 0 to 1 as the work runs */ }
+}
+```
+
+- Make the `ClayzoDocument` once, in a `let` or `@State`. A new document
+  restarts the player at its first frame and initial state, so never build it,
+  or `ClayzoPlayer(bundle:)`, inside `body`.
+- `inputs` apply as their values change. `state` (an id or name) is a
+  command: the machine goes there when the value changes, and starts there.
+- A finger is the pointer: touching enters and presses, lifting releases and
+  clicks, and it leaves on the next frame. There is no hover.
+- `isPlaying`, `isMuted` (true until your sound control sets it false; pass
+  `audio: bundle.audio` too), `loops` (plain timelines only), `label:` or
+  `decorative: true`;
+  `.placeholder` shows until the first frame and stays if the player cannot
+  run, and `.onPlayerError` says why.
+- Reduce Motion is read from the environment: a plain timeline holds the
+  frame it is on; states still follow touches and inputs, each shown at its
+  last frame, so `onComplete` still fires.
+- Fonts are process-wide. `ClayzoDocument(bundle:)` registers the bundle's
+  font assets, and its first packaged family for every run that names only a
+  family.
+- UIKit and AppKit: `try ClayzoPlayerView.make()` and `try view.load(bundle)`,
+  then `setInput`, `fire`, `setState(_:instant:)`, `currentState` and
+  `reducesMotion`.

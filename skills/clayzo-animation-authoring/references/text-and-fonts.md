@@ -29,11 +29,11 @@ nothing, and how to make a stand-in face match a proprietary one.
 - A font asset's `uri` resolves relative to the document on disk. Keep the
   file beside the document (`fonts/…`) so packaging, the terminal export and
   the preview all find it.
-- The package ships no font file. Put a permissively licensed face (an OFL
-  family such as Manrope or Inter) in `fonts/` beside the document and point a
-  `font` asset at it. System faces render locally but cannot be embedded or
-  packaged, and fail on any other machine. Give every run a `fontAssetId`:
-  the WebGL web player does not draw a run that names only a family.
+- Use a face you may ship: put a permissively licensed file (an OFL family
+  such as Inter) in `fonts/` beside the document and point a `font` asset at
+  it, or name the family `Manrope`, which `clayzo` supplies. On a Mac, any
+  other family name renders and packages as the system's SF Pro, which can't
+  be redistributed and adds a 7.5 MB font; elsewhere it draws nothing.
 - `fontAssetId` selects the file; a `.ttc` collection loads its first face
   and there is no face index.
   Leave `letterSpacing` at 0 (centring ignores tracking) and `verticalAlign`

@@ -126,17 +126,17 @@ something. See `loop-design.md`.
 ## Which renderer will play it
 
 If the project ships `@clayzo/webgl-player`, confirm it can draw what you authored —
-mattes, nested clips, Lottie nodes, text with no `font` asset and colour-space
-intrinsics in custom shaders need `@clayzo/canvaskit-player`:
+mattes, nested clips, Lottie nodes and colour-space intrinsics in custom
+shaders need `@clayzo/canvaskit-player`:
 
 ```ts
-import { checkCoverage, registerFont } from "@clayzo/webgl-player";
-await registerFont("manrope", manropeBytes);    // each font asset by its id, or its text is "not encoded"
-const coverage = await checkCoverage(document); // { supported, reasons }
+import { checkCoverage } from "@clayzo/webgl-player";
+const coverage = await checkCoverage(document, loaders); // { supported, reasons }
 ```
 
-It compiles custom shaders to check them, so run it in a browser for a
-document that has one. An unsupported construct is not an error at play time.
+Pass the loaders the player gets (a bundle's included): text in a face they
+don't supply is reported as not encoded. It compiles custom shaders to check
+them, so run it in a browser for a document that has one. An unsupported construct is not an error at play time.
 The node is simply not drawn, and nobody finds out until a user does.
 
 ## Deeper checks

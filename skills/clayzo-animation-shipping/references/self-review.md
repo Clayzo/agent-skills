@@ -41,10 +41,10 @@ stdout ends with a summary:
 | `pixels.alpha_rgb_leak` | Fully transparent pixels carry colour. | Return premultiplied colour from custom shaders. |
 | `motion.pop_in`, `motion.pop_out` | A part appears or vanishes at full opacity in one frame. | Fade or scale it, or mark the frame as a cut. |
 | `motion.flicker` | Opacity, scale or position swings and back on most frames. | Remove the overlapping keyframes; change it once. |
-| `motion.shake` | Small reversals no keyframe of the node or its parents makes: two animations fighting over one property, or keyed noise. | One animation per property; hold still or swing wider. |
+| `motion.shake` | Small reversals no keyframe of the node or its parents makes (two animations fighting over one property), or position, rotation or scale twitching back and forth within a few pixels, degrees or percent, even briefly. | One animation per property; hold still, or give the motion a clear swing. |
 | `motion.large_flash` | Most of the picture, or its brightness, changes at once, more than once within a second. | Ease the changes, or mark each as a cut. |
 | `motion.loop_seam` | The last frame does not lead into the first. | Close the loop (`loop-design.md`), or mark intent below. |
-| `layout.pass_through` | Like-sized parts pass through each other, one comes to rest on another it was clear of, or two texts' letters collide. | Reroute or retime; a part scaled up 5 % or more as it passes reads as lifted over. |
+| `layout.pass_through` | Like-sized parts pass through each other; one comes to rest on another it was clear of; text's letters rest on other text (a subtitle on a headline) or touch a shape's edge; a small part slides straight across a larger still one; a few of a scatter of alike parts land on content while the rest sit clear. | Move it clear, route it around, take it behind, or fade it; a part scaled up 5 % or more as it passes reads as lifted over. |
 | `layout.off_canvas` | Text at rest is cut off by the edge, or a group holding text rests 20 % or more off the canvas. | Move it inside. |
 | `text.low_contrast` | Text is under 4.5:1 against what is behind it (3:1 from 24 px, or 18.66 px bold). | Change its colour, the backdrop, or its size. |
 | `craft.missing_copy`, `craft.orb_only_subject`, `craft.missing_lock_clock` | A document tagged `product-ui`, `lock-screen` or `ios-lock-notification-stack` has no text, only ellipses, or no readable clock. | Set the copy and clock as real text. |
@@ -84,9 +84,13 @@ resolution`.
 - Laptop rows assume the page shows the animation 720 CSS px wide; pass
   `--display-width <px>` with the real width. Phones use their screen width.
   An interactive document is costed at rest.
-- `performance.download_size`: the document (gzipped) plus assets is over
-  3 MB. `performance.oversized_image`: a picture over 4× the document's pixels
-  and 512 KB; resize it.
+- Review the `.clayzo` you ship (every command takes one): its fonts are what
+  the page gets. A loose document gets no family fonts, so its family-only
+  text reports `performance.not_drawn`.
+- `performance.download_size`: the document (gzipped), its assets and the font
+  files its families resolve to come to over 3 MB; the message names the
+  largest. `performance.oversized_image`: a picture over 4× the document's
+  pixels and 512 KB; resize it.
 
 When `performance.frame_budget` fires, its message names the costliest node or
 effect kind and where the time goes.
@@ -101,6 +105,8 @@ effect kind and where the time goes.
 - When the CPU runs late, lower resolution does not help: use fewer nodes.
 - A 30 fps document has twice the frame time of a 60 fps one.
 
-`performance.not_drawn` means the WebGL player skips content. Give every text
-run a `font` asset; change the Lottie nodes or other constructs it names, or
-ship `@clayzo/canvaskit-player`.
+`performance.not_drawn` means the WebGL player would skip content; for text,
+the message names the nodes and the family nothing supplies or the font asset
+that would not load. Package a face you may ship, or fix the asset's `uri`.
+Change the Lottie nodes or other constructs it names, or ship
+`@clayzo/canvaskit-player`.
