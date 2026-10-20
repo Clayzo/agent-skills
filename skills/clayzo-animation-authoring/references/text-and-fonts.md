@@ -29,10 +29,11 @@ nothing, and how to make a stand-in face match a proprietary one.
 - A font asset's `uri` resolves relative to the document on disk. Keep the
   file beside the document (`fonts/…`) so packaging, the terminal export and
   the preview all find it.
-- The package ships no font file. Put a permissively licensed face (an OFL
-  family such as Manrope or Inter) in `fonts/` beside the document and point a
-  `font` asset at it. System faces render locally but cannot be embedded or
-  packaged, and fail on any other machine.
+- `clayzo` supplies the family `Manrope` for interface and body text. To make
+  a document self-contained for the web player, ship it, or another OFL face
+  such as Inter, as a `font` asset in `fonts/` beside the document. A system
+  face such as SF Pro can't be redistributed. Brand names and wordmarks:
+  `art-direction.md`, step 5 ("Words").
 - `fontAssetId` selects the file; a `.ttc` collection loads its first face
   and there is no face index.
   Leave `letterSpacing` at 0 (centring ignores tracking) and `verticalAlign`

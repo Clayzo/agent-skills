@@ -92,7 +92,10 @@ in this order, in writing, before authoring:
    portrait, more in landscape), or nothing. Width is the rule; height
    follows from the letter count. No taglines, captions, footers, dates, stats or
    placeholder bars unless the brief asks for copy — and if it asks for
-   numbers, the numbers are the hero and there are at most three.
+   numbers, the numbers are the hero and there are at most three. Draw a
+   brand name or wordmark from the piece's own geometry (cells, pills, rings:
+   `text-and-fonts.md`, "A wordmark with no font"), not in a stock face; type
+   only words you can't draw, such as UI copy, labels and sentences.
 6. **One punch, then flow.** One moment in the first 0.7 s with physical
    energy — a pop-plateau-snap, a flood with a front, a zoom from the axis —
    and an entrance order that reads as designed. Everything else flows: a
