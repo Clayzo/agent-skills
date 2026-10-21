@@ -96,17 +96,17 @@ numbers go in a comment at the top of the script.
 
 ## A wordmark with no font
 
-Six letters or fewer in a geometric monoline: cap height `H`, stroke
-`0.2 × H` with round caps and joins, letter centrelines inset by half the
-stroke from the cap and base lines, circular bowls (`O`, `B`, `P`, `S` from
-arcs of radius `0.5 × H` and `0.25 × H`), stems as pills, tracking
-`0.18–0.26 × H`. `monolineWordmark(text, { capHeight })` draws it from these
-rules, centred on (0, 0): stroke the path with the `stroke` it returns, round
-caps and joins. For a draw-on pass `polyline: true` and give each of
-`letters` its own path node. A pixel or grid system sets its name in cells
-with `cellWordmark(text, { cell })`: 5 × 7, or `face: "3x5"`; `round: true`
-and a `gap` draw dots. Letters are proportional (an `I` is 3 columns), so
-read `width`. It is centred on (0, 0), so keep cell edges on whole pixels by
-placing it where `x − width / 2` and `y − height / 2` are whole numbers;
-shift the word, not the background. It packages, and it makes the name part
-of the system.
+`monolineWordmark(text, { capHeight })` draws a geometric monoline name:
+stroke `0.2 × H`, round caps and joins, circular bowls. `cellWordmark(text,
+{ cell })` sets one in pixel cells (5 × 7 or `face: "3x5"`; `round: true` and
+a `gap` draw dots). Use them as they are for a caption, a lockup beside a
+hero, or a grid system. When the name is the idea, they are a starting point:
+change the stroke, the terminals or a letter's contours (`letters[]`), or
+build letters from the piece's own shapes.
+
+- Both are centred on (0, 0) and report `width`; cell letters are
+  proportional (an `I` is 3 columns).
+- Stroke the monoline path with the `stroke` it returns. For a draw-on, pass
+  `polyline: true` and give each of `letters` its own node.
+- Keep cell edges on whole pixels: place the word where `x − width / 2` and
+  `y − height / 2` are whole numbers, and shift the word, not the background.
