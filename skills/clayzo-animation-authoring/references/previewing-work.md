@@ -71,9 +71,9 @@ Serves one page: the document playing, scrubable, with an export panel. Open
 the URL it prints. Space plays, arrow keys step a frame, dragging the timeline
 scrubs, and shift-dragging it sets an export range.
 
-**Export from that page is dramatically faster on anything with glass, a
-custom shader, or any other runtime effect.** Frames rasterize on the machine's
-GPU rather than being interpreted per pixel in Node — measured on the
+Shapes, paths and text draw fast on the CPU: a flat 3-second piece exports in
+about a second. **Glass, custom shaders and other runtime effects are
+dramatically faster on the GPU**, where this page draws them — measured on the
 nine-glass-shard section of a 1920x1080 document, **36 ms a frame against
 53,000 ms**. Everything after the frame is unchanged: the same ffmpeg, the same
 quality tiers, the same verification.
@@ -98,10 +98,10 @@ It also stops itself after ten minutes with no browser attached, so a forgotten
 one does not outlive the session — but an agent that started it should not rely
 on that.
 
-`clayzo export` gets the same speed with nobody clicking anything. When a
-document draws faster on the GPU, it starts a Chrome, Edge, Brave or Chromium
-installed on the machine, headless, and draws there; with no such browser or no
-hardware GPU it draws on the CPU. A `[render]` line on stderr names the GPU when
+`clayzo export`, `render-frame` and `review` get the same speed with nobody
+clicking anything. When a document draws faster on the GPU, they start a
+Chrome, Edge, Brave or Chromium installed on the machine, headless, and draw
+there; with no such browser or no hardware GPU they draw on the CPU. A `[render]` line on stderr names the GPU when
 one draws. `--backend cpu` forces the CPU; `--backend browser` waits for a
 person to open the page, so an agent should not use it.
 

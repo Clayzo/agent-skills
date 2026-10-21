@@ -26,19 +26,23 @@ stdout ends with a summary:
   `frames[].rendererDiagnostics`, graded by `level` where analysis
   diagnostics use `severity`; the per-frame timings and cache notes are
   counted in `rendererCounts`.
-- stdout also prints `sampledTicks` and `measured`: `firstChangeTick` (the
+- stdout also prints `sampledTicks`, with `sampledFor` (why each was taken)
+  and `omittedMarkers` (markers with no frame, when any), and `measured`,
+  which review.json has too: `firstChangeTick` (the
   first frame unlike frame 0) and `stillSeconds` before it, `lastChangeTick`
   (where the final picture arrives) and `endHoldSeconds` after it, and `loop`
   (`declared`, and `seam` against `frameStep` with a `verdict` when it was
   measured). The times are left out when the checks cannot place every node.
   Check them against the plan even when nothing warns.
 - Motion, layout and text checks read every displayed frame. Pixel checks read
-  the 8–10 frames in the contact sheet, the loop point, and frames where a
-  large layer changes at once. The sheet takes the first and last frames, a
-  frame per marker (spread evenly when there are more; a cut marker takes
-  two), and keeps three for the busiest motion, at 512 px unless
-  `--max-dimension` or `--full-resolution`. Put a marker on every beat you
-  need to see, and span a run of cuts with one marker.
+  the contact sheet's frames, the loop point, and frames where a large layer
+  changes at once. The sheet keeps the first and last frames, a frame per
+  marker (and the frame before a cut, while there is room), and three where
+  the picture changes most: 10 frames, up to 12 to fit the markers, or
+  `--frames <n>` up to 24, at 512 px unless `--max-dimension` or
+  `--full-resolution`. Each frame is labelled with its tick, time and why it
+  was taken. Put a marker on every beat you need to see, and span a run of
+  cuts with one marker.
 
 ## Codes
 

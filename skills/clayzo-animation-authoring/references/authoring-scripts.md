@@ -175,8 +175,8 @@ plausible before it was noticed.
   space, so a lattice group can drift while every unit pops about its own
   centre.
 - Markers name beats, and `review`'s contact sheet keeps a frame for each
-  (spread evenly when there are more than fit; a cut marker takes two), with
-  three left for the busiest motion.
+  (it grows to 12 frames; `--frames` for more), with three left for the
+  busiest motion.
 - Node `opacity` below 1 allocates an offscreen layer for that node on every
   frame. Six hundred fading dots is six hundred layers a frame and a
   ten-minute export. Animate `style.fill.opacity` (and `stroke.opacity`) on
