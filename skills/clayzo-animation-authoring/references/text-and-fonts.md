@@ -34,9 +34,14 @@ nothing, and how to make a stand-in face match a proprietary one.
   such as Inter, as a `font` asset in `fonts/` beside the document. A system
   face such as SF Pro can't be redistributed. Brand names and wordmarks:
   `art-direction.md`, step 5 ("Words").
-- A text node's `animators` validate, but no renderer draws them. To move
-  letters one at a time, give each letter its own `text` node, or draw the
-  word.
+- A text node's `animators` move letters, words or lines of it on their own:
+  `selector: { start, end, units }` picks units `start` to `end - 1`, counted
+  from 0 across all runs (characters include spaces). Each animator can set
+  `position` (an offset), `rotation`, `scale`, `opacity`, `fillColor` and
+  `tracking` (space after the glyph); a glyph turns and scales about the
+  centre of its advance, on the baseline. One animator per letter, staggered,
+  makes a letter-by-letter rise. SVG export can't draw animators that change
+  over time.
 - `fontAssetId` selects the file; a `.ttc` collection loads its first face
   and there is no face index.
   Leave `letterSpacing` at 0 (centring ignores tracking) and `verticalAlign`
