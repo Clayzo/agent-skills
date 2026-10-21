@@ -30,10 +30,12 @@ One frame at one tick. `--tick` is in ticks, not frames or seconds.
 clayzo render-frame hero.json sheet.png --samples 6 --max-dimension 320
 ```
 
-Six ticks spread evenly across the document, laid out as one labelled sheet.
+Six frames spread evenly across the document, laid out as one labelled sheet.
 **This is the one to reach for by default.** It costs about the same as a single
 frame — the expensive part is starting CanvasKit, not drawing — and it shows
-whether anything actually moves.
+whether anything actually moves. `--start` and `--end` (ticks) spread the
+frames over one span instead: `--samples 6 --start 0 --end 168` is the
+opening 0.7 s at 240 ticks per second.
 
 `--max-dimension` bounds the longer side of each frame, not of the sheet. Use
 it: a 1920×1080 document sampled six times is a large image to look at, and
@@ -152,9 +154,8 @@ codes and fixes are in `self-review.md`.
 - `render-frame` and `export` print diagnostic *counts*. The messages live in
   the review packet (`review.json → frames[].rendererDiagnostics`); a piece
   with text always carries `text.shaping_fallback` there, which is normal.
-- `--samples N` spreads N ticks evenly and they are not snapped to frames;
-  use `--tick` for an exact frame. Twelve `render-frame` calls in parallel
-  are cheap.
+- `--samples` lands on displayed frames; `--tick` renders any tick. Twelve
+  `render-frame` calls in parallel are cheap.
 - Export cost is per *layer*, not per second. A flat document (rects,
   ellipses, text, a few clips) renders at 0.05–0.4 s per 1080p frame on the
   CPU; every node with `opacity` below 1, every isolated group, every drop

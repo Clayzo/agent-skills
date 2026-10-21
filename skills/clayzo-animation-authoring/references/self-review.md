@@ -26,11 +26,11 @@ stdout ends with a summary:
   `frames[].rendererDiagnostics`, graded by `level` where analysis
   diagnostics use `severity`.
 - Motion, layout and text checks read every displayed frame. Pixel checks read
-  the 8–10 frames in the contact sheet (picked around keyframes and markers,
-  512 px unless `--max-dimension` or `--full-resolution`), the loop point, and
-  frames where a large layer changes at once. A field of hundreds of keyframed
-  units fills the contact sheet, so check beats with your own
-  `render-frame --samples` sheets.
+  the 8–10 frames in the contact sheet, the loop point, and frames where a
+  large layer changes at once. The sheet takes the first and last frames, a
+  frame per marker, then the busiest keyframes, at 512 px unless
+  `--max-dimension` or `--full-resolution`. Put a marker on every beat you
+  need to see.
 
 ## Codes
 

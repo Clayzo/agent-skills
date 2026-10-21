@@ -98,9 +98,9 @@ abut seam-free with no bleed.
   the viewer: keep units at least 8 px at that size and at least 12 %
   luminance contrast against the field. Vignettes that fade a dot field to
   nothing at the edges are fine; a whole field at 7 % contrast is not.
-- Several hundred small units, each with pop keyframes, fill `review`'s
-  contact sheet, so the hero, title and punctuation may not appear in it.
-  Check the beats with your own `render-frame --samples` sheets.
+- Several hundred small units, each with pop keyframes, crowd `review`'s
+  contact sheet. Put a marker on the hero, title and punctuation beats: the
+  sheet keeps a frame for each marker.
 - A slow drift of the whole lattice is motion from its first tick. If the
   piece opens on a still, start the drift after it.
 
