@@ -52,9 +52,9 @@ from `startAngle` to its final value; for any path use the `trim` operator with
 `end` 0 → 1. Sequence several segments with durations proportional to their
 lengths so the pen moves at one speed across the joins — ease-in on the
 first, linear in the middle, ease-out on the last — and use round caps.
-Arc angles are degrees, 0° along +x, increasing clockwise on screen (y down);
-`clockwise` is the direction of travel from `startAngle` to `endAngle`, so
-normalise so that the end is past the start in that direction.
+Arc angles are degrees, 0° along +x, increasing clockwise on screen (y down).
+Write arcs with `clockwise: true` and `endAngle` above `startAngle` by up to
+360°: export and the players draw other combinations differently.
 
 **Wipe from an edge.** A rect draws centred on its position, so growing
 `size.width` opens from the middle. For an edge wipe put the clip rect's
@@ -76,11 +76,17 @@ rows or accept the 0.4 s.
 **Trim, honestly.** While `trim.end` is partial the drawn portion is straight
 chords between the path's vertices — a five-vertex circle draws as a pentagon
 until the last frame. Subdivide arcs to 7.5° or finer (a circle is 48
-vertices) for any path that will be drawn on. A trimmed stroke of zero length
-with round caps draws a dot; start `end` at 0.002 or accept the dot as the
-pen touching down. `trim` applies to the whole node, so give each stroke its
-own node when strokes must draw in sequence. A path node's stroke width
-scales with the node's transform like a group's does.
+vertices) for any path that will be drawn on; `{ polyline: true }` on
+`arcVertices`, `pen` and `monolineWordmark` gives those steps. A trim whose
+`end` is at or before its `start` draws nothing; a very short one with round
+caps draws a dot, so a stroke starting from `end` 0 shows a dot one frame in —
+the pen touching down. `trim` cuts every contour of a node by the same
+fraction of its own length at once, so give each stroke its own node when
+strokes must draw in sequence. A closed contour's closing edge is left out
+until `end` reaches 1, so a ring that draws on is an open contour ending where
+it starts, like `arcVertices(c, r, -90, 270, { polyline: true })`. Offsets
+clamp at 0 and 1; they do not wrap. A path node's stroke width scales with the
+node's transform like a group's does.
 
 **Path morph.** A keyframed `path` interpolates vertex by vertex when the
 contour and vertex counts match, and a stroke `width` keyframes with it: an

@@ -11,8 +11,9 @@ the arc approximation that SVG paths go through.
   Scale it evenly or animate `size`: an uneven scale thins the stroke too.
   An `arc` is the same, drawn centred on its position with `radius` on the
   stroke's centreline. With a stroke and no fill it draws open, with the
-  stroke's caps; its angles may run past 360°; a zero-length arc draws
-  nothing, where a zero-length trimmed path draws a dot.
+  stroke's caps. Keep it `clockwise: true` with `endAngle` up to 360° past
+  `startAngle`, and show it from the tick its sweep opens: renderers disagree
+  at a zero sweep. A zero-length trim draws nothing.
 - **Half-pill** — a circle (Ø `s`) plus a rect over the flat half
   (`s/2 × s`). Rounded on the circle's side, square on the other.
 - **Cell with one or two rounded corners** — a rect with `cornerRadius` rounds

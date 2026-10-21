@@ -16,10 +16,8 @@ nothing, and how to make a stand-in face match a proprietary one.
   `align: "center"` centres the run inside `box.width`, so give the box the
   canvas width and put x at 0 to centre on the canvas.
 - No font, no text. A run whose `fontAssetId` cannot be loaded, or whose
-  family no loader supplies, draws nothing — no substitution, no error. The
-  `text.shaping_fallback` and `text.exact_shaping_unavailable` warnings are
-  normal; they mean deterministic CanvasKit metrics were used, not that the
-  font is missing.
+  family no loader supplies, draws nothing — no substitution, no error.
+  `text.exact_shaping_unavailable` means the run's face was not found.
 - `fontWeight` sets a variable font's weight: a face with a `wght` axis is
   drawn at that weight, clamped to the axis. A static face draws as it is,
   and at 600 and above one lighter than semibold is emboldened (faked), as
@@ -45,8 +43,8 @@ nothing, and how to make a stand-in face match a proprietary one.
   that change over time.
 - `fontAssetId` selects the file; a `.ttc` collection loads its first face
   and there is no face index.
-  Leave `letterSpacing` at 0 (centring ignores tracking) and `verticalAlign`
-  at `"top"`.
+  Leave `letterSpacing` at 0: it widens a line for wrapping and alignment but
+  does not space the glyphs. Leave `verticalAlign` at `"top"`.
 - Measure before trusting a size. Render one probe frame and read the run's
   pixel extents. Manrope sets flat capitals (H, E, M) at 0.72 × size and
   round ones (C, O) at 0.75 ×, x-height at 0.55 ×, descenders at 0.24 ×;
@@ -99,9 +97,12 @@ numbers go in a comment at the top of the script.
 ## A wordmark with no font
 
 Six letters or fewer in a geometric monoline: cap height `H`, stroke
-`0.22 × H` with round caps and joins, letter centrelines inset by half the
+`0.2 × H` with round caps and joins, letter centrelines inset by half the
 stroke from the cap and base lines, circular bowls (`O`, `B`, `P`, `S` from
 arcs of radius `0.5 × H` and `0.25 × H`), stems as pills, tracking
-`0.18–0.26 × H`. Build it as stroked `path` nodes from exact cubic arcs, or
-as pills and rings. It takes ten to fifteen minutes, it packages, and it
-makes the name part of the system.
+`0.18–0.26 × H`. `monolineWordmark(text, { capHeight })` draws it from these
+rules, centred on (0, 0): stroke the path with the `stroke` it returns, round
+caps and joins. For a draw-on pass `polyline: true` and give each of
+`letters` its own path node. A pixel or grid system sets its name in cells
+with `cellWordmark(text, { cell })` (5 × 7, or `face: "3x5"`). It packages,
+and it makes the name part of the system.

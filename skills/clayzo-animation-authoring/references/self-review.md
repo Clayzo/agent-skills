@@ -24,7 +24,14 @@ stdout ends with a summary:
   its `message` (what happened and what to change), `ticks`, `nodeIds`,
   `region` (composition px) and `evidence`. Renderer messages per frame are in
   `frames[].rendererDiagnostics`, graded by `level` where analysis
-  diagnostics use `severity`.
+  diagnostics use `severity`; the per-frame timings and cache notes are
+  counted in `rendererCounts`.
+- stdout also prints `sampledTicks` and `measured`: `firstChangeTick` (the
+  first frame unlike frame 0) and `stillSeconds` before it, `lastChangeTick`
+  (where the final picture arrives) and `endHoldSeconds` after it, and `loop`
+  (`declared`, and `seam` against `frameStep` with a `verdict` when it was
+  measured). The times are left out when the checks cannot place every node.
+  Check them against the plan even when nothing warns.
 - Motion, layout and text checks read every displayed frame. Pixel checks read
   the 8–10 frames in the contact sheet, the loop point, and frames where a
   large layer changes at once. The sheet takes the first and last frames, a
@@ -51,6 +58,7 @@ stdout ends with a summary:
 | `layout.pass_through` | Like-sized parts pass through each other; one comes to rest on another it was clear of; text's letters rest on other text (a subtitle on a headline) or touch a shape's edge; a small part slides straight across a larger still one; a few of a scatter of alike parts land on content while the rest sit clear. | Move it clear, route it around, take it behind, or fade it; a part scaled up 5 % or more as it passes reads as lifted over. |
 | `layout.off_canvas` | Text at rest is cut off by the edge, or a group holding text rests 20 % or more off the canvas. | Move it inside. |
 | `text.low_contrast` | Text is under 4.5:1 against what is behind it (3:1 from 24 px, or 18.66 px bold). | Change its colour, the backdrop, or its size. |
+| `text.family_unavailable` | A family the text names isn't installed or an OFL family on Google Fonts; the message names the family it is drawn in instead. | Name a family this machine has or Google Fonts carries, or ship the face as a `font` asset. |
 | `craft.missing_copy`, `craft.orb_only_subject`, `craft.missing_lock_clock` | A document tagged `product-ui`, `lock-screen` or `ios-lock-notification-stack` has no text, only ellipses, or no readable clock. | Set the copy and clock as real text. |
 | `performance.*` | Web playback cost: see below. | |
 
@@ -70,7 +78,8 @@ glitches in a piece built from hold cuts.
   (a flash hazard never does), and the contact sheet shows both sides. At
   tick 0 it marks the loop point as a cut. `review.json → analysis.excused`
   lists what each marker let pass, when one did.
-- `design.tokens.looping`: `true` checks the loop point strictly, `false`
+- `design: { tokens: { looping } }` on the document: `true` checks the loop
+  point strictly, `false`
   skips it for a piece that plays once. Unset, a piece still moving into the
   loop point warns, and one that comes to rest first is a cut.
 - Anything else that stays: name the code, the nodes, and why it is right for
@@ -93,9 +102,9 @@ resolution`.
   `--display-width <px>` with the real width. Phones use their screen width.
   An interactive document is costed at rest.
 - Review the `.clayzo` you ship (every command takes one): its fonts are what
-  the page gets. In a loose document, `Manrope` text is costed as packaged
-  and noted as `performance.unpackaged_fonts` (info: run `clayzo package`);
-  any other family with no font asset reports `performance.not_drawn`.
+  the page gets. In a loose document, text is costed in the faces `clayzo
+  package` would embed and noted as `performance.unpackaged_fonts` (info:
+  run `clayzo package`).
 - `performance.download_size`: the document (gzipped), its assets and the font
   files its families resolve to come to over 3 MB; the message names the
   largest. `performance.oversized_image`: a picture over 4× the document's

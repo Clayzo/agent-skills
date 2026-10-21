@@ -21,9 +21,10 @@ needs `--yes`.
   structurally wrong and still render *something*, so inspecting the output
   does not tell you it is broken.
 - Import from `@clayzo/animation/authoring`. It carries the node types,
-  the value types, `constant`, validation, revision stamping, interaction
-  authoring with all eight pointer macros, and bundling. Other entry points
-  exist and are machinery.
+  the value types, `constant`, helpers for nodes, tracks, arcs and drawn
+  wordmarks, validation, revision stamping, interaction authoring with all
+  eight pointer macros, and bundling. Other entry points exist and are
+  machinery.
 - Build a document, do not mutate one. Compose helpers that return nodes, then
   assemble at the end. Scripts that mutate a shared object are the ones that
   produce documents nobody can reason about.
@@ -37,35 +38,34 @@ needs `--yes`.
 
 ```ts
 import {
-  ANIMATION_DOCUMENT_VERSION, assertValidAnimationDocument, constant,
-  withComputedRevision,
-  type AnimationDocument, type SceneNode, type Transform25D,
+  ANIMATION_DOCUMENT_VERSION, assertValidAnimationDocument, base, constant, fill,
+  keyed, marker, withComputedRevision, type SceneNode,
 } from "@clayzo/animation/authoring";
 
-// 1. Helpers that return nodes. `transform` first — every node needs one and
-//    there are no partial transforms.
-const transform = (x: number, y: number): Transform25D => ({
-  position: constant({ x, y, z: 0 }),
-  anchor: constant({ x: 0, y: 0, z: 0 }),
-  scale: constant({ x: 1, y: 1, z: 1 }),
-  rotation: constant({ x: 0, y: 0, z: 0 }),
-  skew: constant({ x: 0, y: 0 }),
-});
+const OUT = { x1: 0.2, y1: 0.45, x2: 0.45, y2: 1 };
 
-// 2. A `base` helper for the fields every node repeats.
-const base = (id: string, x: number, y: number) => ({
-  id, name: id, visible: true, inTick: 0, outTick: DURATION,
-  opacity: constant(1), transform: transform(x, y), blendMode: "normal" as const,
-});
+// 1. Nodes. `base` fills the fields every node repeats; `keyed` builds a
+//    track from [tick, value, ease] keys and holds the last one.
+const nodes: Record<string, SceneNode> = {
+  field: { ...base("field", { outTick: DURATION, x: 960, y: 540 }), type: "rect",
+           size: constant({ width: 1920, height: 1080 }), cornerRadius: constant(0),
+           style: { fill: fill(BG) } },
+  hero: { ...base("hero", { outTick: DURATION, x: 960, y: 540,
+                            scale: keyed("hero.scale", [[24, { x: 0, y: 0, z: 1 }, OUT], [104, { x: 1, y: 1, z: 1 }]]) }),
+          type: "ellipse", size: constant({ width: 400, height: 400 }), style: { fill: fill(INK) } },
+};
 
-// 3. Assemble, stamp, validate, write.
+// 2. Assemble, stamp, validate, write.
 const document = withComputedRevision({
-  version: ANIMATION_DOCUMENT_VERSION, id: "hero", revision: "", name: "Hero",
+  version: ANIMATION_DOCUMENT_VERSION, id: "hero", name: "Hero",
   canvas: { width: 1920, height: 1080, pixelAspectRatio: 1, backgroundColor: BG },
   timing: { ticksPerSecond: 240, frameRate: { numerator: 30, denominator: 1 },
             durationTicks: DURATION, displayStartTick: 0 },
-  assets: {}, compositions: { main: composition }, rootCompositionId: "main",
-  components: {}, markers: [],
+  assets: {}, rootCompositionId: "main", components: {},
+  compositions: { main: { id: "main", name: "Main", width: 1920, height: 1080,
+                          durationTicks: DURATION, nodes, rootNodeIds: Object.keys(nodes) } },
+  markers: [marker("land", 104)],
+  design: { tokens: { looping: false } },
   capabilities: { required: [], optional: [], unsupportedPolicy: "warn" },
 });
 assertValidAnimationDocument(document);
@@ -95,8 +95,9 @@ constant(value)
 
 `interpolation` is `"hold" | "linear" | "bezier" | "spring"`. `bezier` needs
 `easing: { x1, y1, x2, y2 }`; `spring` needs `spring: { mass, stiffness,
-damping }`. The last keyframe should be `"hold"` — there is nothing after it to
-interpolate toward.
+damping }`. `keyed(id, [[tick, value, ease], …])` builds the track: the ease
+(a cubic-bezier, `"hold"`, `"linear"` or a spring) says how a key moves to the
+next, it is linear when left out, and the last key holds.
 
 ## Effect parameters bind by name
 
@@ -160,15 +161,16 @@ plausible before it was noticed.
   overlaps unless the group has `isolation: true`.
 - `polystar` puts its first outer tip at `rotationOffset − 90°`.
 - SVG arc commands are flattened to straight lines on import; build curves
-  from ellipses or cubic tangents.
+  from ellipses or cubic tangents. `arcVertices`, `circleContour` and `pen`
+  give exact cubic arcs, in the `arc` node's angle convention.
 - Write the document with `writeFileSync`. A top-level `await` fails under
   `tsx` in a CommonJS project, and the failure names esbuild, not your script.
 - A keyframe's `interpolation` and `easing` describe the segment *leaving* it,
-  toward the next keyframe; the last keyframe holds. A `bezier` keyframe with
-  no `easing` is an error at render time, not a silent linear.
-- Keyframe ids must be stable ids and unique; generate them from the node id,
-  the property and the index so a document with a thousand keyframes never
-  collides.
+  toward the next keyframe; the last keyframe holds.
+  `assertValidAnimationDocument` rejects a `bezier` keyframe with no `easing`.
+- Ids — nodes, keyframes, markers — are 1–128 letters, digits, `.`, `_`, `:`
+  or `-`, starting with a letter or digit; no spaces. Names are free text.
+  `keyed` numbers a track's keyframe ids for you.
 - Transforms compose: a child's transform is applied in its parent's local
   space, so a lattice group can drift while every unit pops about its own
   centre.
@@ -207,7 +209,7 @@ and must be reachable from `rootNodeIds`.
 ```ts
 assets: { score: { id: "score", type: "audio", uri: "score.wav", mimeType: "audio/wav" } },
 // in composition.nodes, and listed in rootNodeIds:
-score: { ...base("score", 0, 0), type: "audio", assetId: "score",
+score: { ...base("score", { outTick: DURATION }), type: "audio", assetId: "score",
          volume: constant(1), playbackRate: constant(1), startOffsetTick: 0, loop: false },
 ```
 

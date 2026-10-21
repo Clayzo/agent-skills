@@ -48,7 +48,7 @@ dimensions, and a diagnostics count.
 
 `render-frame`, `review`, `package`, `export` and `preview` need a signed-in
 Clayzo account: `clayzo login` on the person's machine, or `CLAYZO_TOKEN` in
-CI. Where the CLI can't reach Clayzo (it says `CLAYZO_OFFLINE`), such as
+CI. `clayzo doctor` says whether this machine is signed in. Where the CLI can't reach Clayzo (it says `CLAYZO_OFFLINE`), such as
 Claude's sandbox, call the Clayzo connector's `get_render_pass` and put the
 pass in `CLAYZO_TOKEN` for each command:
 
@@ -151,9 +151,9 @@ codes and fixes are in `self-review.md`.
 
 ## What the terminal actually tells you
 
-- `render-frame` and `export` print diagnostic *counts*. The messages live in
-  the review packet (`review.json → frames[].rendererDiagnostics`); a piece
-  with text always carries `text.shaping_fallback` there, which is normal.
+- `render-frame` and `export` print diagnostic counts, and the codes behind
+  them when any fired; drawing text is not counted. The messages are in
+  `review.json`.
 - `--samples` lands on displayed frames; `--tick` renders any tick. Twelve
   `render-frame` calls in parallel are cheap.
 - Export cost is per *layer*, not per second. A flat document (rects,
@@ -161,8 +161,9 @@ codes and fixes are in `self-review.md`.
   CPU; every node with `opacity` below 1, every isolated group, every drop
   shadow and every effect adds an offscreen surface per frame, and that is
   how a story of sixty translucent stains takes seventeen minutes. Progress
-  with an ETA is printed to stderr; if the CPU is drawing and the first ETA
-  exceeds a minute, export from `clayzo preview`.
+  is printed to stderr about once a second, with an ETA once a few frames are
+  done; if the CPU is drawing and that ETA exceeds a minute, export from
+  `clayzo preview`.
 - `export` writes a `<output>.preview.png` sheet beside the file: up to 20
   frames, 320 px wide, spread across the whole export. It is a convenience,
   not a deliverable.

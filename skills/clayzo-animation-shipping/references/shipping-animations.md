@@ -214,10 +214,14 @@ an OFL face such as Inter as a `font` asset, or the family `Manrope`, which
 `clayzo` supplies. Otherwise pass `loaders.familyFontLoader`, and give
 `checkCoverage(document, loaders)` the same loaders. Don't name a system
 family such as SF Pro: it can't be redistributed, and packaged it adds a
-7.5 MB font. On a Mac, `clayzo` renders and packages every family it doesn't
-supply as SF Pro. `clayzo review` warns with `performance.not_drawn` when the
-WebGL player would leave text undrawn, and with `performance.download_size`
-when fonts make the download heavy.
+7.5 MB font. `clayzo` renders and packages the installed face of each family
+a document names, at its weight; a family that isn't installed comes from
+Google Fonts when it is an OFL family there. Text in a family found nowhere
+is drawn in its `fallbackFamilies`, then SF Pro on a Mac or Manrope
+elsewhere, and `clayzo` warns with `text.family_unavailable`. `clayzo review`
+warns with `performance.not_drawn` when the WebGL player would leave text
+undrawn, and with `performance.download_size` when fonts make the download
+heavy.
 
 ## iOS and macOS
 
