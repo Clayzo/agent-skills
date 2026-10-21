@@ -51,6 +51,7 @@ stdout ends with a summary:
 | `pixels.blank` (error) | A sampled frame draws nothing. | Check `rootNodeIds`, `inTick`/`outTick`, opacity, fonts. |
 | `renderer.unresolved` | The renderer warned or failed on a sample. | Read `frames[].rendererDiagnostics`. |
 | `pixels.edge_clipping` | Artwork touches the frame edge on a frame it does not fill. | Inset it, or draw a background. |
+| `layout.edge_gap` | A background meant to fill the canvas stops a pixel or two short of an edge: a hairline border, black in video. | Size the field to cover the canvas; shift the content, not the background. |
 | `pixels.alpha_rgb_leak` | Fully transparent pixels carry colour. | Return premultiplied colour from custom shaders. |
 | `motion.pop_in`, `motion.pop_out` | A part appears or vanishes at full opacity in one frame. | Fade or scale it, or mark the frame as a cut. |
 | `motion.flicker` | Opacity, scale or position swings and back on most frames. | Remove the overlapping keyframes; change it once. |
@@ -59,7 +60,7 @@ stdout ends with a summary:
 | `motion.flash_hazard` | A third of the frame each way brightens and darkens by 10 % or more over three times a second: a seizure risk (WCAG 2.3.1). No marker excuses it. | Three flashes a second or fewer, less contrast, or a smaller area. Fine noise averages out; coarse noise does not. |
 | `motion.glitch` | Something shows for one frame that the motion around it does not explain: a part shown for 0.1 s or less, a one-frame jump in opacity, place, size or look, or a thin sliver a fast clip leaves. | Find the stray keyframe or the in or out tick a frame off; stop a clip's edge short of the part, or ease its last steps. |
 | `motion.loop_seam` | The last frame does not lead into the first. | Close the loop (`loop-design.md`), or mark intent below. |
-| `layout.pass_through` | Like-sized parts pass through each other; one comes to rest on another it was clear of; text's letters rest on other text (a subtitle on a headline) or touch a shape's edge; a small part slides straight across a larger still one; a few of a scatter of alike parts land on content while the rest sit clear. | Move it clear, route it around, take it behind, or fade it; a part scaled up 5 % or more as it passes reads as lifted over. |
+| `layout.pass_through` | Like-sized parts pass through each other; one comes to rest on another it was clear of; text's letters rest on other text (a subtitle on a headline) or touch a shape's edge; a small part slides straight across a larger still one; a few of a scatter of alike parts land on content while the rest sit clear. Crossings in a burst of five or more alike parts in flight pass. | Move it clear, route it around, take it behind, or fade it; a part 5 % or more larger than at rest as it passes reads as lifted over. |
 | `layout.off_canvas` | Text at rest is cut off by the edge, or a group holding text rests 20 % or more off the canvas. | Move it inside. |
 | `text.low_contrast` | Text is under 4.5:1 against what is behind it (3:1 from 24 px, or 18.66 px bold). | Change its colour, the backdrop, or its size. |
 | `text.family_unavailable` | A family the text names isn't installed or an OFL family on Google Fonts; the message names the family it is drawn in instead. | Name a family this machine has or Google Fonts carries, or ship the face as a `font` asset. |
