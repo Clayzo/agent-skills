@@ -40,8 +40,9 @@ nothing, and how to make a stand-in face match a proprietary one.
   `position` (an offset), `rotation`, `scale`, `opacity`, `fillColor` and
   `tracking` (space after the glyph); a glyph turns and scales about the
   centre of its advance, on the baseline. One animator per letter, staggered,
-  makes a letter-by-letter rise. SVG export can't draw animators that change
-  over time.
+  makes a letter-by-letter rise. Lines with right-to-left letters or
+  combining accents draw without them, and SVG export can't draw animators
+  that change over time.
 - `fontAssetId` selects the file; a `.ttc` collection loads its first face
   and there is no face index.
   Leave `letterSpacing` at 0 (centring ignores tracking) and `verticalAlign`
