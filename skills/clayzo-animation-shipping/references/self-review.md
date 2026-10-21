@@ -28,9 +28,10 @@ stdout ends with a summary:
 - Motion, layout and text checks read every displayed frame. Pixel checks read
   the 8–10 frames in the contact sheet, the loop point, and frames where a
   large layer changes at once. The sheet takes the first and last frames, a
-  frame per marker (spread evenly when there are more), then the busiest
-  keyframes, at 512 px unless `--max-dimension` or `--full-resolution`. Put
-  a marker on every beat you need to see.
+  frame per marker (spread evenly when there are more; a cut marker takes
+  two), and keeps three for the busiest motion, at 512 px unless
+  `--max-dimension` or `--full-resolution`. Put a marker on every beat you
+  need to see, and span a run of cuts with one marker.
 
 ## Codes
 
@@ -68,7 +69,7 @@ glitches in a piece built from hold cuts.
   (zero length, or spanning it). Pops, glitches and flashes inside it pass
   (a flash hazard never does), and the contact sheet shows both sides. At
   tick 0 it marks the loop point as a cut. `review.json → analysis.excused`
-  lists what each marker let pass.
+  lists what each marker let pass, when one did.
 - `design.tokens.looping`: `true` checks the loop point strictly, `false`
   skips it for a piece that plays once. Unset, a piece still moving into the
   loop point warns, and one that comes to rest first is a cut.

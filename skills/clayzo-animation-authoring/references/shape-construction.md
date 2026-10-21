@@ -9,6 +9,10 @@ the arc approximation that SVG paths go through.
 - **Ring** — an `ellipse` with a stroke and no fill. Its `size` is the
   stroke's centreline, so the outer edge is `size` plus the stroke width.
   Scale it evenly or animate `size`: an uneven scale thins the stroke too.
+  An `arc` is the same, drawn centred on its position with `radius` on the
+  stroke's centreline. With a stroke and no fill it draws open, with the
+  stroke's caps; its angles may run past 360°; a zero-length arc draws
+  nothing, where a zero-length trimmed path draws a dot.
 - **Half-pill** — a circle (Ø `s`) plus a rect over the flat half
   (`s/2 × s`). Rounded on the circle's side, square on the other.
 - **Cell with one or two rounded corners** — a rect with `cornerRadius` rounds
@@ -20,7 +24,8 @@ the arc approximation that SVG paths go through.
   on its corners.
 - **Crumb, sprinkle** — `polystar` star, 7 points, inner 0.8 × outer,
   `innerRoundness`/`outerRoundness` 80 (percent, 0–100; 0.5 does nothing).
-  Six points at inner 0.85–0.9 reads as a nut.
+  Six points at inner 0.85–0.9 reads as a nut. For crumbs under about
+  120 px; a large crumb or a mark wants an irregular contour, not a star.
 - **Starburst** — `polystar`, variant `"star"`. The first outer tip sits at
   `rotationOffset − 90°` (straight up when the offset is 0) and tips repeat
   every `360 / points`. A 24-point burst at outer 206 / inner 161 is the
