@@ -34,13 +34,17 @@ nothing, and how to make a stand-in face match a proprietary one.
   such as Inter, as a `font` asset in `fonts/` beside the document. A system
   face such as SF Pro can't be redistributed. Brand names and wordmarks:
   `art-direction.md`, step 5 ("Words").
+- A text node's `animators` validate, but no renderer draws them. To move
+  letters one at a time, give each letter its own `text` node, or draw the
+  word.
 - `fontAssetId` selects the file; a `.ttc` collection loads its first face
   and there is no face index.
   Leave `letterSpacing` at 0 (centring ignores tracking) and `verticalAlign`
   at `"top"`.
 - Measure before trusting a size. Render one probe frame and read the run's
-  pixel extents. Manrope ExtraBold sets capitals at 0.74 × size, x-height at
-  0.55 ×, descenders at 0.24 ×; "Wrapped" at 101 px is 437 px wide.
+  pixel extents. Manrope sets flat capitals (H, E, M) at 0.72 × size and
+  round ones (C, O) at 0.75 ×, x-height at 0.55 ×, descenders at 0.24 ×;
+  "Wrapped" at 101 px is 437 px wide.
 
 ## Scaling and anchoring a run
 

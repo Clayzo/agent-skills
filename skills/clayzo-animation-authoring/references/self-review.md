@@ -43,7 +43,9 @@ stdout ends with a summary:
 | `motion.pop_in`, `motion.pop_out` | A part appears or vanishes at full opacity in one frame. | Fade or scale it, or mark the frame as a cut. |
 | `motion.flicker` | Opacity, scale or position swings and back on most frames. | Remove the overlapping keyframes; change it once. |
 | `motion.shake` | Small reversals no keyframe of the node or its parents makes (two animations fighting over one property), or position, rotation or scale twitching back and forth within a few pixels, degrees or percent, even briefly. | One animation per property; hold still, or give the motion a clear swing. |
-| `motion.large_flash` | Most of the picture, or its brightness, changes at once, more than once within a second. | Ease the changes, or mark each as a cut. |
+| `motion.large_flash` | Most of the picture changes at once with its brightness swinging, more than once within a second. | Ease the changes, or mark each as a cut. |
+| `motion.flash_hazard` | A third of the frame each way brightens and darkens by 10 % or more over three times a second: a seizure risk (WCAG 2.3.1). No marker excuses it. | Three flashes a second or fewer, less contrast, or a smaller area. Fine noise averages out; coarse noise does not. |
+| `motion.glitch` | Something shows for one frame that the motion around it does not explain: a part shown for 0.1 s or less, a one-frame jump in opacity, place, size or look, or a thin sliver a fast clip leaves. | Find the stray keyframe or the in or out tick a frame off; stop a clip's edge short of the part, or ease its last steps. |
 | `motion.loop_seam` | The last frame does not lead into the first. | Close the loop (`loop-design.md`), or mark intent below. |
 | `layout.pass_through` | Like-sized parts pass through each other; one comes to rest on another it was clear of; text's letters rest on other text (a subtitle on a headline) or touch a shape's edge; a small part slides straight across a larger still one; a few of a scatter of alike parts land on content while the rest sit clear. | Move it clear, route it around, take it behind, or fade it; a part scaled up 5 % or more as it passes reads as lifted over. |
 | `layout.off_canvas` | Text at rest is cut off by the edge, or a group holding text rests 20 % or more off the canvas. | Move it inside. |
@@ -54,15 +56,19 @@ stdout ends with a summary:
 Info only, never in `codes`: `pixels.low_contrast_range`,
 `motion.frozen_interval`, `geometry.not_checked` (nodes the checks cannot
 measure, such as nodes under a perspective camera or rotated in 3D; the
-message says why), `performance.near_budget`, `performance.unavailable`, and
-the quiet forms of the codes above: a single hard cut, a piece that comes to
-rest and cuts back to the start, display type bleeding up to 10 % off the
-edge, shapes off the canvas, pops and flicker in a piece built from hold cuts.
+message says why), `performance.near_budget`, `performance.unavailable`,
+`performance.unpackaged_fonts`, and the quiet forms of the codes above: a
+single hard cut, noise that changes most pixels but not the brightness, a
+piece that comes to rest and cuts back to the start, display type bleeding
+up to 10 % off the edge, shapes off the canvas, and pops, flicker and
+glitches in a piece built from hold cuts.
 
 ## Marking intent
 - A hard cut on purpose: a marker whose `payload` has `cut: true`, at the cut
-  (zero length, or spanning it). Pops and flashes inside it pass, and the
-  contact sheet shows both sides. At tick 0 it marks the loop point as a cut.
+  (zero length, or spanning it). Pops, glitches and flashes inside it pass
+  (a flash hazard never does), and the contact sheet shows both sides. At
+  tick 0 it marks the loop point as a cut. `review.json → analysis.excused`
+  lists what each marker let pass.
 - `design.tokens.looping`: `true` checks the loop point strictly, `false`
   skips it for a piece that plays once. Unset, a piece still moving into the
   loop point warns, and one that comes to rest first is a cut.
@@ -86,8 +92,9 @@ resolution`.
   `--display-width <px>` with the real width. Phones use their screen width.
   An interactive document is costed at rest.
 - Review the `.clayzo` you ship (every command takes one): its fonts are what
-  the page gets. A loose document gets no family fonts, so its family-only
-  text reports `performance.not_drawn`.
+  the page gets. In a loose document, `Manrope` text is costed as packaged
+  and noted as `performance.unpackaged_fonts` (info: run `clayzo package`);
+  any other family with no font asset reports `performance.not_drawn`.
 - `performance.download_size`: the document (gzipped), its assets and the font
   files its families resolve to come to over 3 MB; the message names the
   largest. `performance.oversized_image`: a picture over 4× the document's
