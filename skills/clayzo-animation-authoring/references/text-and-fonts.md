@@ -104,5 +104,9 @@ arcs of radius `0.5 × H` and `0.25 × H`), stems as pills, tracking
 rules, centred on (0, 0): stroke the path with the `stroke` it returns, round
 caps and joins. For a draw-on pass `polyline: true` and give each of
 `letters` its own path node. A pixel or grid system sets its name in cells
-with `cellWordmark(text, { cell })` (5 × 7, or `face: "3x5"`). It packages,
-and it makes the name part of the system.
+with `cellWordmark(text, { cell })`: 5 × 7, or `face: "3x5"`; `round: true`
+and a `gap` draw dots. Letters are proportional (an `I` is 3 columns), so
+read `width`. It is centred on (0, 0), so keep cell edges on whole pixels by
+placing it where `x − width / 2` and `y − height / 2` are whole numbers;
+shift the word, not the background. It packages, and it makes the name part
+of the system.

@@ -21,10 +21,10 @@ needs `--yes`.
   structurally wrong and still render *something*, so inspecting the output
   does not tell you it is broken.
 - Import from `@clayzo/animation/authoring`. It carries the node types,
-  the value types, `constant`, helpers for nodes, tracks, arcs and drawn
-  wordmarks, validation, revision stamping, interaction authoring with all
-  eight pointer macros, and bundling. Other entry points exist and are
-  machinery.
+  the value types, `constant`, helpers for nodes, tracks, colours (`hex`),
+  trims, arcs and drawn wordmarks, validation, revision stamping,
+  interaction authoring with all eight pointer macros, and bundling. Other
+  entry points exist and are machinery.
 - Build a document, do not mutate one. Compose helpers that return nodes, then
   assemble at the end. Scripts that mutate a shared object are the ones that
   produce documents nobody can reason about.
