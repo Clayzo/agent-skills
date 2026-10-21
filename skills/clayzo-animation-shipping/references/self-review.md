@@ -28,9 +28,9 @@ stdout ends with a summary:
 - Motion, layout and text checks read every displayed frame. Pixel checks read
   the 8–10 frames in the contact sheet, the loop point, and frames where a
   large layer changes at once. The sheet takes the first and last frames, a
-  frame per marker, then the busiest keyframes, at 512 px unless
-  `--max-dimension` or `--full-resolution`. Put a marker on every beat you
-  need to see.
+  frame per marker (spread evenly when there are more), then the busiest
+  keyframes, at 512 px unless `--max-dimension` or `--full-resolution`. Put
+  a marker on every beat you need to see.
 
 ## Codes
 

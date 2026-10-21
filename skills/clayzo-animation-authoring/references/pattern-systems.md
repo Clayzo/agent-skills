@@ -100,7 +100,7 @@ abut seam-free with no bleed.
   nothing at the edges are fine; a whole field at 7 % contrast is not.
 - Several hundred small units, each with pop keyframes, crowd `review`'s
   contact sheet. Put a marker on the hero, title and punctuation beats: the
-  sheet keeps a frame for each marker.
+  sheet keeps a frame for each marker while it has room.
 - A slow drift of the whole lattice is motion from its first tick. If the
   piece opens on a still, start the drift after it.
 
