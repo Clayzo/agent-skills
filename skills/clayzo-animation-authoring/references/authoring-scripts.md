@@ -236,9 +236,9 @@ const shot = video("shot-a", { asset: clip, inTick: 0, outTick: 960,
                                x: 960, y: 540, width: 1920, height: 1080, sourceStartTick: 480 });
 ```
 
-- Use MP4 or MOV. Phone and screen recordings often have a variable frame
-  rate, which `videoAsset` refuses: run `clayzo import-video <file>` and use
-  the file it writes.
+- Run `clayzo import-video <clip> --document <doc.json>` first and use the
+  asset it prints. Phone and screen recordings (variable frame rate, HDR,
+  HEVC) come back as an H.264 MP4 every player shows exactly.
 - `sourceStartTick` is where in the file the clip starts, and
   `sourceDurationTicks` trims its end. Cut between shots with adjacent
   `inTick` and `outTick`.
