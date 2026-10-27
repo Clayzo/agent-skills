@@ -221,6 +221,32 @@ score: { ...base("score", { outTick: DURATION }), type: "audio", assetId: "score
 - `render-frame` and `review` have no sound. To confirm it, export an mp4 and
   check `metadata.audioMuxed` is true in the JSON it prints.
 
+## Video
+
+Footage is a `video` node playing a `video` asset: drawn like an image, heard
+like an audio node.
+
+```ts
+import { readFileSync } from "node:fs";
+import { video, videoAsset } from "@clayzo/animation/authoring";
+
+const clip = videoAsset("hero", "footage/hero.mp4", readFileSync("footage/hero.mp4"));
+// assets: { hero: clip }, and the node listed in rootNodeIds:
+const shot = video("shot-a", { asset: clip, inTick: 0, outTick: 960,
+                               x: 960, y: 540, width: 1920, height: 1080, sourceStartTick: 480 });
+```
+
+- Use MP4 or MOV. Phone and screen recordings often have a variable frame
+  rate, which `videoAsset` refuses: run `clayzo import-video <file>` and use
+  the file it writes.
+- `sourceStartTick` is where in the file the clip starts, and
+  `sourceDurationTicks` trims its end. Cut between shots with adjacent
+  `inTick` and `outTick`.
+- `playbackRate` (0 holds the picture) and `volume` (0 mutes) can be
+  keyframed. `loop` repeats the part of the file the clip uses.
+- Mask footage with a `matte`. Titles, glass and shaders go over it as later
+  nodes.
+
 ## Interactivity
 
 `withInteraction(scene, contributions)` layers pointer behaviour onto a

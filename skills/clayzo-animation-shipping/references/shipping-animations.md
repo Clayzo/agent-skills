@@ -205,6 +205,13 @@ A document's audio nodes play in both players and export with the video.
   `<clayzo-player>`). If you pass your own `loaders`, include
   `audioAssetLoader`; a `.clayzo` carries its audio.
 
+## Video
+
+Both web players play a document's footage, and a `.clayzo` carries its
+clips. If you pass your own `loaders`, include `videoAssetLoader`. The iOS
+package doesn't draw footage yet, so ship a document with video to the web or
+as an exported file. A clip's sound behaves like an audio node's.
+
 ## Fonts
 
 A document whose text names a font family needs that face at play time; if
